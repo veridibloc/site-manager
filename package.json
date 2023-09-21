@@ -4,12 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "generate:prisma": "prisma generate",
+    "prebuild": "yarn generate:prisma",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.24.0",
+    "@prisma/client": "^5.3.1",
     "@types/node": "20.6.3",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
@@ -24,6 +28,7 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "husky": "^8.0.0"
+    "husky": "^8.0.0",
+    "prisma": "^5.3.1"
   }
 }

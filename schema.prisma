@@ -10,12 +10,20 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+enum UserStatus {
+    Active
+    Inactive
+}
+
 model User {
-  id            String    @default(cuid()) @id
-  name          String?
-  email         String?   @unique
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  seed          String?
-  @@map(name: "users")
+  id            String      @default(cuid()) @id
+  email         String      @unique
+  firstName     String?
+  lastName      String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  encSeed       String?
+  publicKey     String?
+  accountId     String?
+  status        UserStatus  @default(Active)
 }

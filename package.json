@@ -4,18 +4,23 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "generate:prisma": "prisma generate",
-    "prebuild": "yarn generate:prisma",
+    "prebuild": "yarn db:gen",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "test": "vitest run"
+    "test": "vitest run",
+    "db:gen": "prisma generate",
+    "db:push": "dotenv -e .env.local -- prisma db push",
+    "db:migrate": "dotenv -e .env.local -- npx prisma migrate dev --name",
+    "db:ui": "dotenv -e .env.local -- npx prisma studio"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.24.0",
     "@prisma/client": "^5.3.1",
     "@scure/bip39": "^1.2.1",
+    "@signumjs/core": "^1.0.0-rc.74",
+    "@signumjs/crypto": "^1.0.0-rc.74",
     "@types/node": "20.6.3",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
@@ -31,6 +36,7 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
+    "dotenv-cli": "^7.3.0",
     "husky": "^8.0.0",
     "prisma": "^5.3.1",
     "vitest": "^0.34.5"

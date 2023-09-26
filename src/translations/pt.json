@@ -1,0 +1,14 @@
+{
+  "errors": {
+    "not-found": "Não Encontrado"
+  },
+
+  "navigation": {
+    "dashboard": "Painel de Controle",
+    "collectors": "Catadores",
+    "collectors-receive": "Receber",
+    "material": "Material",
+    "material-register": "Cadastrar",
+    "material-bundle": "Criar Lote"
+  }
+}

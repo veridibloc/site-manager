@@ -1,5 +1,6 @@
 import { authMiddleware } from "@clerk/nextjs";
 import createIntlMiddleware from "next-intl/middleware";
+import {NextResponse} from 'next/server';
 
 const intlMiddleware = createIntlMiddleware({
     locales: ['en', 'pt'],
@@ -15,5 +16,5 @@ export default authMiddleware({
 
 
 export const config = {
-    matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)', '/'],
+    matcher: ['/((?!.+\\.[\\w]+$|_next|_vercel).*)', '/', '/(api|trpc)(.*)', '/'],
 };

@@ -1,5 +1,5 @@
 import {UserJSON, UserWebhookEvent } from '@clerk/nextjs/server'
-import db from  '@/back/prisma'
+import db from '@/back/prisma'
 
 export async function handleUserDeletion(event: UserWebhookEvent) {
     const user = event.data as UserJSON;

@@ -1,17 +1,22 @@
-import {ReactElement} from 'react';
+'use client'
+
+import {ReactElement, useEffect, useRef} from 'react';
 import {ChildrenProps} from '@/types/childrenProps';
 import {useTranslations} from 'next-intl';
 
 interface Props extends ChildrenProps {
     i18n: string;
     icon: ReactElement;
+    isOpen?: boolean
 }
 
-export const NavGroup = ({i18n, icon, children}: Props) => {
+export const NavGroup = ({i18n, icon, isOpen = true, children}: Props) => {
+    const ref = useRef<HTMLLIElement>(null);
     const t = useTranslations("navigation");
+
     return (
-        <li className="hs-accordion">
-            <a className="hs-accordion-toggle flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:hs-accordion-active:text-white">
+        <li ref={ref} className="hs-accordion">
+            <div className="hs-accordion-toggle flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:hover:bg-transparent text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:hs-accordion-active:text-white">
                 {icon}
                 {t(i18n)}
                 <svg
@@ -26,10 +31,10 @@ export const NavGroup = ({i18n, icon, children}: Props) => {
                     <path d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
                           stroke="currentColor" strokeWidth="2" strokeLinecap="round"></path>
                 </svg>
-            </a>
+            </div>
 
             <div className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden">
-                <ul className="hs-accordion-group pl-3 pt-2" data-hs-accordion-always-open>
+                <ul className="hs-accordion-group pl-3 pt-2" data-hs-accordion-always-open={true}>
                     {children}
                 </ul>
             </div>

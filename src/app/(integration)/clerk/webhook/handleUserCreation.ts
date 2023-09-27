@@ -3,7 +3,7 @@ import {createBip39Seed, encrypt} from '@/back/crypto';
 import {generateMasterKeys} from '@signumjs/crypto';
 import {Address} from '@signumjs/core';
 import {getEnv} from '@/common/getEnv';
-import db from  '@/back/prisma'
+import db from '@/back/prisma'
 
 /*
 {

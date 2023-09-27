@@ -3,12 +3,11 @@
 import {ChildrenProps} from '@/types/childrenProps';
 import {SidebarToggle} from './sidebarToggle';
 import {Sidebar} from './sidebar';
-import {useLayoutEffect} from 'react';
+import {useEffect} from 'react';
 
 
-
-export const ClientAppLayout = ({children}: ChildrenProps) => {
-    useLayoutEffect(() => {
+const ClientAppLayout = ({children}: ChildrenProps) => {
+    useEffect(() => {
         // @ts-ignore
         import('preline')
     }, []);
@@ -21,3 +20,5 @@ export const ClientAppLayout = ({children}: ChildrenProps) => {
         </main>
     </div>
 }
+
+export default ClientAppLayout;

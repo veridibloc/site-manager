@@ -1,7 +1,5 @@
-import {Address} from '@signumjs/core';
-
 export interface UserAccount {
-    address: Address;
+    publicKey: string;
     email: string;
     firstName: string;
     isActive: boolean;

@@ -5,6 +5,7 @@ import {SidebarToggle} from './sidebarToggle';
 import {Sidebar} from './sidebar';
 import {useEffect} from 'react';
 import {UserAccount} from '@/types/userAccount';
+import {AccountContext} from '@/common/contexts/accountContext';
 
 interface Props extends ChildrenProps {
     account: UserAccount;
@@ -17,16 +18,15 @@ const ClientAppLayout = ({children, account}: Props) => {
         import('preline')
     }, []);
 
-    console.log("account", account)
-
-    return <div>
-
-        <SidebarToggle/>
-        <Sidebar/>
-        <main className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
-            {children}
-        </main>
-    </div>
+    return (
+        <AccountContext.Provider value={account}>
+            <SidebarToggle/>
+            <Sidebar/>
+            <main className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
+                {children}
+            </main>
+        </AccountContext.Provider>
+    )
 }
 
 export default ClientAppLayout;

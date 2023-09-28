@@ -4,20 +4,20 @@ import {ChildrenProps} from '@/types/childrenProps';
 import {SidebarToggle} from './sidebarToggle';
 import {Sidebar} from './sidebar';
 import {useEffect} from 'react';
+import {UserAccount} from '@/types/userAccount';
 
 interface Props extends ChildrenProps {
-    userId: string;
-    locale: string;
+    account: UserAccount;
 }
 
-const ClientAppLayout = ({children, locale}: Props) => {
+const ClientAppLayout = ({children, account}: Props) => {
 
     useEffect(() => {
         // @ts-ignore
         import('preline')
     }, []);
 
-    // console.log("account", account)
+    console.log("account", account)
 
     return <div>
 

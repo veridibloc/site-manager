@@ -8,6 +8,8 @@ import dynamic from "next/dynamic";
 import {getClerkLocalization, SupportedLocales} from '@/back/localization';
 import {NextIntlClientProvider, useMessages} from 'next-intl';
 import {ChildrenProps} from '@/types/childrenProps';
+import {fetchUserAccount} from '@/back/fetchUserAccount';
+import {UserAccount} from '@/types/userAccount';
 
 const ClientAppLayout = dynamic(() => import("../../ui/layout/clientAppLayout"), {
     ssr: false,
@@ -20,11 +22,11 @@ export const metadata: Metadata = {
 }
 
 interface Props extends ChildrenProps {
-    user: any
+    account: UserAccount
     locale: string;
 }
 
-function RootLayout({children, locale, user}: Props) {
+function RootLayout({children, locale, account}: Props) {
     const messages = useMessages()
 
     const isValidLocale = SupportedLocales.some((cur) => cur === locale);
@@ -32,7 +34,7 @@ function RootLayout({children, locale, user}: Props) {
         return notFound();
     }
 
-    if (!user){
+    if (!account){
        return notFound();
     }
 
@@ -41,7 +43,7 @@ function RootLayout({children, locale, user}: Props) {
         <body className="bg-gray-50 dark:bg-slate-900">
         <ClerkProvider localization={getClerkLocalization(locale)} afterSignInUrl="/">
             <NextIntlClientProvider messages={messages} locale={locale}>
-                <ClientAppLayout locale={locale} user={user}>
+                <ClientAppLayout account={account}>
                     {children}
                 </ClientAppLayout>
             </NextIntlClientProvider>
@@ -53,7 +55,17 @@ function RootLayout({children, locale, user}: Props) {
 
 export default async function LayoutWrapper({children, params: {locale}}: any) {
     const user = await currentUser();
-    return <RootLayout user={user} locale={locale}>
+
+    if(!user){
+        return notFound();
+    }
+
+    const account  = await fetchUserAccount(user)
+    if(!account){
+        console.error("Account not found for userId: ", user.id)
+        return notFound();
+    }
+    return <RootLayout account={account} locale={locale}>
         {children}
     </RootLayout>
 }

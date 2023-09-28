@@ -2,10 +2,10 @@ import {Webhook} from 'svix'
 import {headers} from 'next/headers'
 import {UserWebhookEvent, WebhookEvent} from '@clerk/nextjs/server'
 import {NextResponse} from 'next/server';
-import {handleUserCreation} from '@/app/(integration)/clerk/webhook/handleUserCreation';
-import {handleUserUpdate} from '@/app/(integration)/clerk/webhook/handleUserUpdate';
+import {handleUserCreation} from './handleUserCreation';
+import {handleUserUpdate} from './handleUserUpdate';
+import {handleUserDeletion} from './handleUserDeletion';
 import {getEnv} from '@/common/getEnv';
-import {handleUserDeletion} from '@/app/(integration)/clerk/webhook/handleUserDeletion';
 
 
 export async function GET() {

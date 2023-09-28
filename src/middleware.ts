@@ -7,8 +7,13 @@ const intlMiddleware = createIntlMiddleware({
     defaultLocale: 'pt'
 });
 
+const IgnoreIntlRoute = /\/api\/.*/
+
 export default authMiddleware({
     beforeAuth: (req) => {
+        if(IgnoreIntlRoute.test(req.url)){
+            return NextResponse.next();
+        }
         return intlMiddleware(req);
     },
     publicRoutes: ["/clerk/webhook"]

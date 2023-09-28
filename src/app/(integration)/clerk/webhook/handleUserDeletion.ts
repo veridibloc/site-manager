@@ -3,10 +3,10 @@ import db from '@/back/prisma'
 
 export async function handleUserDeletion(event: UserWebhookEvent) {
     const user = event.data as UserJSON;
-    console.log("Marking user as deleted:", user.email_addresses[0].email_address);
-    await db.user.update({
+    console.log(`Marking user ${user.id} as deleted:`);
+    await db.account.update({
         where: {
-            email: user.email_addresses[0].email_address,
+            userId: user.id,
         },
         data: {
             status: "Deleted",

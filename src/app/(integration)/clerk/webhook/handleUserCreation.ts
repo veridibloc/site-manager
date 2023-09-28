@@ -50,18 +50,15 @@ import db from '@/back/prisma'
 }
  */
 export async function handleUserCreation(event: UserWebhookEvent) {
-
     const user = event.data as UserJSON;
     const seed = createBip39Seed();
     const encryptedSeed = encrypt(seed, getEnv('AES_SECRET')) as string;
     const {publicKey} = generateMasterKeys(seed);
     const address = Address.fromPublicKey(publicKey);
-    console.log("Creating user: ", user.email_addresses[0].email_address);
-    await db.user.create({
+    console.log("Creating account: ", user.email_addresses[0].email_address, user.id);
+    await db.account.create({
         data: {
-            email: user.email_addresses[0].email_address,
-            firstName: user.first_name,
-            lastName: user.last_name,
+            userId: user.id,
             accountId: address.getNumericId(),
             encSeed: encryptedSeed,
             publicKey,

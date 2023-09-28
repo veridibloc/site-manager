@@ -16,15 +16,13 @@ enum UserStatus {
     Deleted
 }
 
-model User {
+model Account {
   id            String      @default(cuid()) @id
-  email         String      @unique
-  firstName     String?
-  lastName      String?
+  userId        String      @unique
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-  encSeed       String?
-  publicKey     String?
-  accountId     String?
+  encSeed       String
+  publicKey     String
+  accountId     String
   status        UserStatus  @default(Active)
 }

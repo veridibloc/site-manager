@@ -3,14 +3,13 @@ import db from '@/back/prisma'
 
 export async function handleUserUpdate(event: UserWebhookEvent) {
     const user = event.data as UserJSON;
-    console.log("Updating user:", user.email_addresses[0].email_address);
-    await db.user.update({
+    console.log("Updating user:", user.id);
+    await db.account.update({
         where: {
-            email: user.email_addresses[0].email_address,
+            userId: user.id,
         },
         data: {
-            firstName: user.first_name,
-            lastName: user.last_name,
+            status: user.banned ? "Inactive" : "Active",
         }
     })
 }

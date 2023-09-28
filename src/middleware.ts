@@ -16,7 +16,7 @@ export default authMiddleware({
         }
         return intlMiddleware(req);
     },
-    publicRoutes: ["/clerk/webhook"]
+    publicRoutes: ["/api/clerk/webhook"]
 });
 
 

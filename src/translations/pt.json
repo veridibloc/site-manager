@@ -10,5 +10,17 @@
     "material": "Material",
     "material-register": "Cadastrar",
     "material-bundle": "Criar Lote"
+  },
+
+  "collectors": {
+    "scanQrCode": "Scan QR Code",
+    "confirm": "Confirmar",
+    "collector": "Catador",
+    "material": "Material",
+    "quantity": "Quantidade",
+    "enter-address-or-scan": "Digite o endereço ou escaneie o QR Code"
+  },
+  "common": {
+    "cancel": "Cancelar"
   }
 }

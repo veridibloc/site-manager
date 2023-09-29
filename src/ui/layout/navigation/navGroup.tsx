@@ -1,6 +1,6 @@
 'use client'
 
-import {ReactElement, useEffect, useRef} from 'react';
+import {ReactElement, useRef} from 'react';
 import {ChildrenProps} from '@/types/childrenProps';
 import {useTranslations} from 'next-intl';
 

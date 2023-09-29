@@ -9,5 +9,16 @@
     "material": "Material",
     "material-register": "Register",
     "material-bundle": "Bundle"
+  },
+  "collectors": {
+    "scanQrCode": "Scan QR Code",
+    "confirm": "Confirm",
+    "collector": "Collector",
+    "material": "Material",
+    "quantity": "Quantity",
+    "enter-address-or-scan": "Enter address or scan QR code"
+  },
+  "common": {
+    "cancel": "Cancel"
   }
 }

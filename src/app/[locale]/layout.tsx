@@ -10,6 +10,7 @@ import {NextIntlClientProvider, useMessages} from 'next-intl';
 import {ChildrenProps} from '@/types/childrenProps';
 import {fetchUserAccount} from '@/back/fetchUserAccount';
 import {UserAccount} from '@/types/userAccount';
+import NextTopLoader from 'nextjs-toploader';
 
 const ClientAppLayout = dynamic(() => import("../../ui/layout/clientAppLayout"), {
     ssr: false,
@@ -42,6 +43,7 @@ function RootLayout({children, locale, account}: Props) {
         <html lang={locale}>
         <body className="bg-gray-50 dark:bg-slate-900">
         <ClerkProvider localization={getClerkLocalization(locale)} afterSignInUrl="/">
+            <NextTopLoader color="#3B82F6"/>
             <NextIntlClientProvider messages={messages} locale={locale}>
                 <ClientAppLayout account={account}>
                     {children}

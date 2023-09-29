@@ -25,8 +25,10 @@ export const NavItem = ({icon, i18n, href}: Props) => {
     return <li>
         <Link
             href={href}
-            className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm  rounded-md hover:bg-gray-100 dark:bg-gray-900  ${isActive ? 'font-bold text-blue-500 bg-gray-100 dark:bg-gray-800' : 'text-slate-700 dark:text-white'}`}
-        >
+            className={
+                `flex items-center gap-x-3.5 py-2 px-2.5 text-sm  rounded-md hover:bg-gray-100 dark:bg-gray-900 
+            ${isActive ? 'font-bold text-blue-500 bg-gray-100 dark:bg-gray-800' : 'text-slate-700 dark:text-white'}`
+            }>
             {icon}
             {t(i18n)}
         </Link>

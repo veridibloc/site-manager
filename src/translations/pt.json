@@ -20,7 +20,14 @@
     "quantity": "Quantidade",
     "enter-address-or-scan": "Digite o endereço ou escaneie o QR Code"
   },
+
+  "material": {
+    "material": "Material",
+    "quantity": "Quantidade",
+    "numberLots": "Número de Lotes"
+  },
   "common": {
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
   }
 }

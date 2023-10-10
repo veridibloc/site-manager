@@ -3,4 +3,5 @@ export interface UserAccount {
     email: string;
     firstName: string;
     isActive: boolean;
+    encryptedSeed?: string;
 }

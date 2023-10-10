@@ -18,6 +18,7 @@
   "dependencies": {
     "@clerk/localizations": "^1.26.1",
     "@clerk/nextjs": "^4.24.0",
+    "@hapi/boom": "^10.0.1",
     "@prisma/client": "^5.3.1",
     "@scure/bip39": "^1.2.1",
     "@signumjs/core": "^1.0.0-rc.75",
@@ -26,6 +27,7 @@
     "@types/node": "20.6.3",
     "@types/react": "18.2.23",
     "@types/react-dom": "18.2.8",
+    "@veridibloc/smart-contracts": "file:veridibloc-smart-contracts-v0.0.1.tgz",
     "autoprefixer": "10.4.16",
     "eslint": "8.49.0",
     "eslint-config-next": "13.5.2",

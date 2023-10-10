@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 export const Avatar = () => {
     const address = useUserAddress()
+    console.log("Avatar:", address.getPublicKey())
     const  {Ledger:{ExplorerUrl}} = useAppContext()
     return (
         <header className="w-full flex flex-col items-center justify-center">

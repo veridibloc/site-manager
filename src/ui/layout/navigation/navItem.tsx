@@ -19,7 +19,7 @@ export const NavItem = ({icon, i18n, href}: Props) => {
     const isActive = useMemo(() => {
         const phref = href.endsWith('/') ? href.slice(0, -1) : href
         return pathname === `/${locale}${phref}`
-    }, [href, pathname])
+    }, [href, pathname, locale])
 
 
     return <li>

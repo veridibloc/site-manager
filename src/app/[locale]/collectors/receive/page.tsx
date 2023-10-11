@@ -4,14 +4,19 @@ import {PageLayout} from '@/ui/layout/pageLayout';
 import {FormLayout} from '@/ui/layout/formLayout';
 import {TextInput} from '@/ui/inputs/textInput';
 import {useTranslations} from 'next-intl';
+import {FaCheckCircle, FaTimesCircle} from "react-icons/fa"
 // @ts-ignore
 import {experimental_useFormState as useFormState} from 'react-dom';
 import {registerCollection} from './actions';
-import {SubmitButton} from '@/ui/buttons/submitButton';
 import {TextInputWithButton} from '@/ui/inputs/textInputWithButton';
 import {DropDown} from '@/ui/inputs/dropdown';
 import {NumberInput} from '@/ui/inputs/numberInput';
-import {useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {FormSubmitButton} from '@/ui/buttons/formSubmitButton';
+import {useAppContext} from '@/common/hooks/useAppContext';
+import {LedgerClientFactory, setAccountInfo} from '@signumjs/core';
+// @ts-ignore
+import debounce from 'lodash.debounce';
 
 const initialFormValues = {
     collector: "",
@@ -20,15 +25,26 @@ const initialFormValues = {
 }
 
 export default function Page() {
+    const formRef = useRef<any>();
     const [state, action] = useFormState(registerCollection, {result: null});
     const [fieldValues, setFieldValues] = useState(initialFormValues)
+    const [accountAddress, setAccountAddress] = useState<string|null>("")
     const t = useTranslations("collectors");
-
-    console.log("state", state)
+    const {Ledger: {DefaultNode}} = useAppContext();
 
     const handleOnScanQrCode = () => {
         console.log("scan QrCode")
     }
+
+    useEffect(() => {
+        state.success && formRef.current && formRef.current.reset();
+    }, [state]);
+
+    const ledgerInstance = useMemo(() => {
+        return LedgerClientFactory.createClient({
+            nodeHost: DefaultNode
+        })
+    }, [DefaultNode]);
 
     const handleOnChange = (event: any) => {
         const fieldName = event.target.name;
@@ -39,24 +55,58 @@ export default function Page() {
         })
     }
 
-    const canSubmit = fieldValues.collector && fieldValues.material !== "0" && fieldValues.quantity
+    const handleCollectorChange = (event: any) => {
+        if (!ledgerInstance) {
+            console.warn("Ledger instance not ready yet")
+            return;
+        }
+
+        const collector = event.target.value;
+        ledgerInstance.account.getAccount({
+            accountId: collector,
+        }).then(account => {
+            setAccountAddress(account.accountRS)
+        }).catch(e => {
+            setAccountAddress(null);
+        })
+    }
+
+    const canSubmit = accountAddress && fieldValues.material !== "0" && fieldValues.quantity
 
     return (
         <PageLayout>
             <h2>Collectors Receive!</h2>
             <FormLayout>
-                <form action={action} onChange={handleOnChange}>
+                <form action={action} onChange={handleOnChange} ref={formRef}>
                     <div className="gap-4 grid grid-cols-1">
-                        <TextInputWithButton
-                            name="collector"
-                            placeholder={t("enter-address-or-scan")}
-                            buttonLabel={t("scanQrCode")}
-                            onClick={handleOnScanQrCode}
-                            label={t("collector")}
-                            // @ts-ignore
-                            autoComplete="signum-account"
-                            required={true}
-                        />
+                        <div className="relative">
+
+                            <TextInputWithButton
+                                name="collector"
+                                placeholder={t("enter-address-or-scan")}
+                                buttonLabel={t("scanQrCode")}
+                                onBlur={handleCollectorChange}
+                                onClick={handleOnScanQrCode}
+                                label={t("collector")}
+                                // @ts-ignore
+                                autoComplete="signum-account"
+                                required={true}
+                            />
+                            {accountAddress &&
+                              <div className="mt-0 text-sm text-gray-500 flex flex-row items-center">
+                                <div className="mr-1 text-green-500">
+                                  <FaCheckCircle/>
+                                </div>
+                                  {accountAddress}
+                              </div>}
+                            {accountAddress === null &&
+                              <div className="mt-0 text-sm text-gray-500 flex flex-row items-center">
+                                <div className="mr-1 text-red-500">
+                                  <FaTimesCircle/>
+                                </div>
+                                  {t("account-not-found")}
+                              </div>}
+                        </div>
 
                         <DropDown label={t("material")} name="material">
                             <option value="0">-- Select --</option>
@@ -76,7 +126,8 @@ export default function Page() {
                         />
 
                         <div className="mt-4 border-b border-gray-200"/>
-                        <SubmitButton label={t("confirm")} disabled={!canSubmit}/>
+                        <FormSubmitButton label={t("confirm")} disabled={!canSubmit}/>
+                        {state.error && (<p className="mt-2 text-sm text-red-500">{state.error}</p>)}
                     </div>
                 </form>
             </FormLayout>

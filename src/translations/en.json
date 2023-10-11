@@ -16,7 +16,8 @@
     "collector": "Collector",
     "material": "Material",
     "quantity": "Quantity",
-    "enter-address-or-scan": "Enter address or scan QR code"
+    "enter-address-or-scan": "Enter address or scan QR code",
+    "account-not-found": "Account not found"
   },
 
   "material": {

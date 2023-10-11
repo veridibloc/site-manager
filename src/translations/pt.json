@@ -18,7 +18,8 @@
     "collector": "Catador",
     "material": "Material",
     "quantity": "Quantidade",
-    "enter-address-or-scan": "Digite o endereço ou escaneie o QR Code"
+    "enter-address-or-scan": "Digite o endereço ou escaneie o QR Code",
+    "account-not-found": "Conta não encontrada"
   },
 
   "material": {

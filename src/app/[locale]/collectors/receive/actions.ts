@@ -14,6 +14,7 @@ const schema = z.object({
     materialId: z.string(),
     quantity: z.number().gt(0),
 })
+
 export async function registerCollection(prevState: any, formData: FormData) {
 
     try {
@@ -27,11 +28,11 @@ export async function registerCollection(prevState: any, formData: FormData) {
         console.log("registerCollection", parsedData);
 
         const user = await currentUser();
-        if(!user){
+        if (!user) {
             throw unauthorized();
         }
 
-        const  {materialId, quantity, collectorId} = parsedData
+        const {materialId, quantity, collectorId} = parsedData
         const contractsProvider = new ContractsProvider();
         const contract = await contractsProvider.getCollectorTokenContractSingleton();// check if exists!
         const collectorAccount = await contractsProvider.ledger.account.getAccount({
@@ -39,12 +40,12 @@ export async function registerCollection(prevState: any, formData: FormData) {
             includeCommittedAmount: false,
             includeEstimatedCommitment: false,
         })
-        if(!collectorAccount){
+        if (!collectorAccount) {
             throw notFound(`Collector ${parsedData.collectorId} not found!`)
         }
 
-        const userAccount  = await fetchUserAccount(user, true)
-        if(!userAccount){
+        const userAccount = await fetchUserAccount(user, true)
+        if (!userAccount) {
             throw notFound("User Account not found!")
         }
         const seed = decrypt(userAccount.encryptedSeed ?? "", getEnv("AES_SECRET"))
@@ -53,7 +54,7 @@ export async function registerCollection(prevState: any, formData: FormData) {
             signPrivateKey,
         } = generateMasterKeys(seed)
 
-        if(publicKey.toLowerCase() !== userAccount.publicKey.toLowerCase()){
+        if (publicKey.toLowerCase() !== userAccount.publicKey.toLowerCase()) {
             throw unauthorized("Public Key Mismatch");
         }
 
@@ -62,12 +63,21 @@ export async function registerCollection(prevState: any, formData: FormData) {
             publicKey,
             privateKey: signPrivateKey
         })
-        const txId = await contract.grantCollectorToken(materialId, quantity, collectorId);
+        const txId = {
+            transaction: "bla"
+        }
+        const sleep = (millies: number) => new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(true);
+            }, millies)
+        })
+        await sleep(2_000);
+        // const txId = await contract.grantCollectorToken(materialId, quantity, collectorId);
         console.info("Collection registered and collector token granted...", txId);
-        return Promise.resolve({result: "ok", txId: txId!.transaction})
+        return {success: txId!.transaction};
     } catch (e: any) {
         const boom = boomify(e);
-        console.error(boom);
-        return Promise.reject(boom);
+        console.error("Boom", boom);
+        return {error: boom.output.payload.message};
     }
 }

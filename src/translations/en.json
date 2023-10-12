@@ -23,7 +23,8 @@
   "material": {
     "material": "Material",
     "quantity": "Quantity",
-    "numberLots": "Number of Lots"
+    "numberLots": "Number of Lots",
+    "pet": "PET - Polyethylene terephthalate"
   },
 
   "common": {

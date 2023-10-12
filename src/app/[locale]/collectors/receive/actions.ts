@@ -3,11 +3,7 @@ import {z} from 'zod'
 import {ContractsProvider} from '@/common/contractsProvider';
 import {boomify, notFound, unauthorized} from '@hapi/boom';
 import {currentUser} from '@clerk/nextjs';
-import {fetchUserAccount} from '@/back/fetchUserAccount';
-import {decrypt} from '@/back/crypto';
-import {getEnv} from '@/common/getEnv';
-import {NonSecureSigner} from '@veridibloc/smart-contracts';
-import {generateMasterKeys} from '@signumjs/crypto';
+import {createSigner} from '@/back/createSigner';
 
 const schema = z.object({
     collectorId: z.string(),
@@ -32,9 +28,9 @@ export async function registerCollection(prevState: any, formData: FormData) {
             throw unauthorized();
         }
 
-        const {materialId, quantity, collectorId} = parsedData
         const contractsProvider = new ContractsProvider();
         const contract = await contractsProvider.getCollectorTokenContractSingleton();// check if exists!
+        contract.signer = await createSigner(contractsProvider.ledger);
         const collectorAccount = await contractsProvider.ledger.account.getAccount({
             accountId: parsedData.collectorId,
             includeCommittedAmount: false,
@@ -43,36 +39,8 @@ export async function registerCollection(prevState: any, formData: FormData) {
         if (!collectorAccount) {
             throw notFound(`Collector ${parsedData.collectorId} not found!`)
         }
-
-        const userAccount = await fetchUserAccount(user, true)
-        if (!userAccount) {
-            throw notFound("User Account not found!")
-        }
-        const seed = decrypt(userAccount.encryptedSeed ?? "", getEnv("AES_SECRET"))
-        const {
-            publicKey,
-            signPrivateKey,
-        } = generateMasterKeys(seed)
-
-        if (publicKey.toLowerCase() !== userAccount.publicKey.toLowerCase()) {
-            throw unauthorized("Public Key Mismatch");
-        }
-
-        contract.signer = new NonSecureSigner({
-            ledger: contract.ledger,
-            publicKey,
-            privateKey: signPrivateKey
-        })
-        const txId = {
-            transaction: "bla"
-        }
-        const sleep = (millies: number) => new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(true);
-            }, millies)
-        })
-        await sleep(2_000);
-        // const txId = await contract.grantCollectorToken(materialId, quantity, collectorId);
+        const {collectorId, materialId, quantity} =  parsedData
+        const txId = await contract.grantCollectorToken(materialId, quantity, collectorId);
         console.info("Collection registered and collector token granted...", txId);
         return {success: txId!.transaction};
     } catch (e: any) {

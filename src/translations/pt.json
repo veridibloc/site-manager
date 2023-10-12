@@ -25,7 +25,8 @@
   "material": {
     "material": "Material",
     "quantity": "Quantidade",
-    "numberLots": "Número de Lotes"
+    "numberLots": "Número de Lotes",
+    "pet": "PET - Polietileno de Tereftalato"
   },
   "common": {
     "cancel": "Cancelar",

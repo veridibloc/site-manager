@@ -8,11 +8,11 @@ import {experimental_useFormState as useFormState} from 'react-dom';
 import {registerMaterial} from './actions';
 import {DropDown} from '@/ui/inputs/dropdown';
 import {NumberInput} from '@/ui/inputs/numberInput';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 import {useAccountContext} from '@/common/hooks/useAccountContext';
 import {FormSubmitButton} from '@/ui/buttons/formSubmitButton';
 import {useStockContracts} from '@/common/hooks/useStockContracts';
-import {CardGroup} from '@/ui/cards/cardGroup';
+import {SimpleCard} from '@/ui/cards/simpleCard';
 
 
 const initialFormValues = {
@@ -24,13 +24,10 @@ export default function Page() {
     const formRef = useRef<any>();
     const [state, action] = useFormState(registerMaterial, {result: null});
     const {materials} = useAccountContext();
-    const {isLoading: isLoadingContracts, contracts} = useStockContracts();
+    const {isLoading: isLoadingContracts, contracts = []} = useStockContracts();
     const [fieldValues, setFieldValues] = useState(initialFormValues)
     const t = useTranslations("material");
     const tc = useTranslations("common");
-
-
-    console.log("PAGE contracts", contracts)
 
     useEffect(() => {
         state.success && formRef.current && formRef.current.reset();
@@ -47,12 +44,46 @@ export default function Page() {
 
     const canSubmit = fieldValues.material !== "0" && fieldValues.quantity
 
+    const cards = useMemo(() => {
+
+        const materialMap = materials.reduce((map, m) => {
+            map[m.stockContractId] = t(m.type.toLowerCase());
+            return map
+        }, {} as Record<string, string>)
+
+        if (isLoadingContracts) {
+            return Object.entries(materialMap).map(([key, value]) => {
+                return {
+                    id: key,
+                    title: value,
+                    content: '',
+                    sub: ''
+                }
+            })
+        }
+
+        return contracts
+            .filter((contract) => !!materialMap[contract.contractId])
+            .map((contract) => {
+                const data = contract.getData();
+                return {
+                    id: contract.contractId,
+                    title: materialMap[contract.contractId],
+                    content: `${data.stockQuantity} kg`,
+                    sub: ''
+                }
+            })
+
+    }, [isLoadingContracts, contracts, materials]);
+
     return (
         <PageLayout>
-            <h2>Register Material</h2>
+            <h1>Register Material</h1>
 
-            <section className="max-w-2xl w-full mx-auto my-4">
-                <CardGroup />
+            <section className="max-w-2xl w-full mx-auto my-4 ">
+                <div className="overflow-x-auto">
+                    {cards.map( ({id, ...props}) => <SimpleCard key={id} {...props}/>)}
+                </div>
             </section>
 
             <FormLayout>

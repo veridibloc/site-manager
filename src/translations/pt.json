@@ -13,7 +13,8 @@
   },
 
   "collectors": {
-    "scanQrCode": "Scan QR Code",
+    "receive-collection-title": "Receber Coleta",
+    "scan-qr-code": "Scan QR Code",
     "confirm": "Confirmar",
     "collector": "Catador",
     "material": "Material",
@@ -23,10 +24,15 @@
   },
 
   "material": {
+    "register-incoming-material-title": "Cadastrar Material Separado",
+    "bundle-material-title": "Criar Lote de Material",
     "material": "Material",
     "quantity": "Quantidade",
-    "numberLots": "Número de Lotes",
-    "pet": "PET - Polietileno de Tereftalato"
+    "number-lots": "Número de Lotes",
+    "pet": "PET - Polietileno de Tereftalato",
+    "pe": "PE - Polietileno",
+    "pvc": "PVC - Polivinil Clorido",
+    "in-stock": "Em Estoque"
   },
   "common": {
     "cancel": "Cancelar",

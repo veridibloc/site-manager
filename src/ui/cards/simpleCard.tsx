@@ -9,11 +9,11 @@ interface Props {
 }
 
 
-export const SimpleCard = ({title, content, sub, isLoading = false}: Props) => {
+export const SimpleCard = ({title, content, sub, isLoading = false, isSelected = false}: Props) => {
 
     return (
         <div
-            className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+            className={`flex flex-col w-[300px] bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] ${isSelected ? "bg-blue-400 drop-shadow" : ""}`}>
             <div className="p-4 md:p-5">
                 <h3 className="text-lg font-bold text-gray-800 dark:text-white">
                     {isLoading

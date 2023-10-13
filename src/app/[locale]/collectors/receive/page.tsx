@@ -37,7 +37,11 @@ export default function Page() {
     }
 
     useEffect(() => {
-        state.success && formRef.current && formRef.current.reset();
+        if(state.success){
+            formRef.current?.reset();
+            setFieldValues(initialFormValues);
+            setAccountAddress("");
+        }
     }, [state]);
 
     const ledgerInstance = useMemo(() => {
@@ -74,8 +78,7 @@ export default function Page() {
     const canSubmit = accountAddress && fieldValues.material !== "0" && fieldValues.quantity
 
     return (
-        <PageLayout>
-            <h2>Collectors Receive!</h2>
+        <PageLayout title={t("receive-collection-title")}>
             <FormLayout>
                 <form action={action} onChange={handleOnChange} ref={formRef}>
                     <div className="gap-4 grid grid-cols-1">
@@ -84,7 +87,7 @@ export default function Page() {
                             <TextInputWithButton
                                 name="collector"
                                 placeholder={t("enter-address-or-scan")}
-                                buttonLabel={t("scanQrCode")}
+                                buttonLabel={t("scan-qr-code")}
                                 onBlur={handleCollectorChange}
                                 onClick={handleOnScanQrCode}
                                 label={t("collector")}

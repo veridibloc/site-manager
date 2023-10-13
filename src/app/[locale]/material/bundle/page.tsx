@@ -36,8 +36,7 @@ export default function Page() {
     const canSubmit = fieldValues.material !== "0" && fieldValues.numberLots
 
     return (
-        <PageLayout>
-            <h2>Bundle Material</h2>
+        <PageLayout title={t("bundle-material-title")}>
             <FormLayout>
                 <form action={action} onChange={handleOnChange}>
                     <div className="gap-4 grid grid-cols-1">

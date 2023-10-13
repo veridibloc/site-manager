@@ -33,7 +33,10 @@ export default function Page() {
     const tc = useTranslations("common");
 
     useEffect(() => {
-        state.success && formRef.current && formRef.current.reset();
+        if(state.success){
+            formRef.current?.reset();
+            setFieldValues(initialFormValues);
+        }
     }, [state]);
 
     const handleOnChange = (event: any) => {
@@ -45,7 +48,6 @@ export default function Page() {
         })
     }
 
-    const canSubmit = fieldValues.material !== "0" && fieldValues.quantity
 
     const cards = useMemo(() => {
 
@@ -72,20 +74,25 @@ export default function Page() {
                 return {
                     id: contract.contractId,
                     title: materialMap[contract.contractId],
-                    content: `${formatter.number( data.stockQuantity, {minimumSignificantDigits: 3})} t`,
+                    content: (
+                        <>
+                            <span>{`${t("in-stock")}: ${formatter.number( data.stockQuantity/1000, {minimumSignificantDigits: 3})} t`}</span>
+                        </>
+                    ),
                     sub: ''
                 }
             })
 
     }, [isLoadingContracts, contracts, materials]);
 
-    return (
-        <PageLayout>
-            <h1>Register Material</h1>
+    const canSubmit = fieldValues.material !== "0" && fieldValues.quantity > 0
 
-            <section className="max-w-2xl w-full mx-auto my-4 ">
-                <div className="overflow-x-auto">
-                    {cards.map( ({id, ...props}) => <SimpleCard key={id} {...props}/>)}
+    return (
+        <PageLayout title={t("register-incoming-material-title")}>
+
+            <section className="max-w-4xl w-full mx-auto my-4 pb-4 border-b border-gray-300">
+                <div className="overflow-x-auto flex flex-row justify-center gap-x-2">
+                    {cards.map( ({id, ...props}) => <SimpleCard key={id} isSelected={id===fieldValues.material} {...props}/>)}
                 </div>
             </section>
 

@@ -11,7 +11,8 @@
     "material-bundle": "Bundle"
   },
   "collectors": {
-    "scanQrCode": "Scan QR Code",
+    "receive-collection-title": "Receive Collection",
+    "scan-qr-code": "Scan QR Code",
     "confirm": "Confirm",
     "collector": "Collector",
     "material": "Material",
@@ -21,10 +22,15 @@
   },
 
   "material": {
+    "register-incoming-material-title": "Register Incoming Material",
+    "bundle-material-title": "Bundle Material to Lot",
     "material": "Material",
     "quantity": "Quantity",
-    "numberLots": "Number of Lots",
-    "pet": "PET - Polyethylene terephthalate"
+    "number-lots": "Number of Lots",
+    "pet": "PET - Polyethylene terephthalate",
+    "pe": "PE - Polyethylene",
+    "pvc": "PVC - Polyvinyl chloride",
+    "in-stock": "In Stock"
   },
 
   "common": {

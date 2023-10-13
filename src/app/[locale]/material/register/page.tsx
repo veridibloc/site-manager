@@ -13,6 +13,7 @@ import {useAccountContext} from '@/common/hooks/useAccountContext';
 import {FormSubmitButton} from '@/ui/buttons/formSubmitButton';
 import {useStockContracts} from '@/common/hooks/useStockContracts';
 import {SimpleCard} from '@/ui/cards/simpleCard';
+import {useFormatter} from 'next-intl'
 
 
 const initialFormValues = {
@@ -22,6 +23,8 @@ const initialFormValues = {
 
 export default function Page() {
     const formRef = useRef<any>();
+    const formatter = useFormatter();
+
     const [state, action] = useFormState(registerMaterial, {result: null});
     const {materials} = useAccountContext();
     const {isLoading: isLoadingContracts, contracts = []} = useStockContracts();
@@ -69,7 +72,7 @@ export default function Page() {
                 return {
                     id: contract.contractId,
                     title: materialMap[contract.contractId],
-                    content: `${data.stockQuantity} kg`,
+                    content: `${formatter.number( data.stockQuantity, {minimumSignificantDigits: 3})} t`,
                     sub: ''
                 }
             })

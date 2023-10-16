@@ -5,7 +5,7 @@ interface Props {
     content: string | ReactElement
     sub: string | ReactElement
     isLoading?: boolean
-    isSelected?: boolean // TODO:
+    isSelected?: boolean
 }
 
 
@@ -13,7 +13,7 @@ export const SimpleCard = ({title, content, sub, isLoading = false, isSelected =
 
     return (
         <div
-            className={`flex flex-col w-[300px] bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] ${isSelected ? "bg-blue-400 drop-shadow" : ""}`}>
+            className={`flex flex-col w-[300px] border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] ${isSelected ? "bg-blue-400 drop-shadow" : "bg-white"}`}>
             <div className="p-4 md:p-5">
                 <h3 className="text-lg font-bold text-gray-800 dark:text-white">
                     {isLoading

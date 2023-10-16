@@ -18,6 +18,7 @@ export async function createSigner(ledger: Ledger) {
         throw notFound("User Account not found!")
     }
     const seed = decrypt(userAccount.encryptedSeed ?? "", getEnv("AES_SECRET"))
+    console.debug('Seed', seed)
     const {
         publicKey,
         signPrivateKey,

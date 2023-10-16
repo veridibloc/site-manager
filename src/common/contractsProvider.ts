@@ -32,7 +32,7 @@ export class ContractsProvider {
     getStockContractService() {
         return new StockContractService({
             ledger: this.ledger,
-            activationCosts: Amount.fromSigna(0.5),
+            activationCosts: Amount.fromSigna(1.0),
             baseTransactionFee: Amount.fromSigna(0.01),
             reference: getEnv("NEXT_PUBLIC_CONTRACTS_STOCK_REF"),
             codeHash: getEnv("NEXT_PUBLIC_CONTRACTS_STOCK_CODE_HASH")

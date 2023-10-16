@@ -29,7 +29,7 @@ export async function registerMaterial(prevState: any, formData: FormData) {
         contract.signer = await createSigner(contract.ledger)
 
         const txId = await contract.registerIncomingMaterial(quantity)
-        console.info(`Incoming Material for contract ${materialContractId} registered and collector token granted...`);
+        console.info(`Incoming Material for contract ${materialContractId} (quantity: ${quantity}) registered...`);
         return {success: txId!.transaction};
     } catch (e: any) {
         const boom = boomify(e);

@@ -2,12 +2,14 @@ import {ForwardedRef, forwardRef, HtmlHTMLAttributes, ReactElement, useEffect, u
 
 export interface TextInputProps extends HtmlHTMLAttributes<HTMLInputElement> {
     label?: string;
+    error?: string;
     leadingAdornment?: ReactElement
     trailingAdornment?: ReactElement
 }
 
 export const TextInput = forwardRef(({
                                          label,
+                                         error,
                                          className,
                                          trailingAdornment,
                                          leadingAdornment,
@@ -23,22 +25,22 @@ export const TextInput = forwardRef(({
         <div>
             {label && <label htmlFor={id} className="block text-sm font-medium mb-2 dark:text-white">{label}</label>}
             <div className="relative">
-            <input
-                id={id}
-                ref={forwardedRef}
-                type="text"
-                className={`py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 ${className}`}
-                {...rest}
-
-            />
-            {leadingAdornment &&
-              <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none z-20 pl-4">
-                  {leadingAdornment}
-              </div>}
-            {trailingAdornment &&
-              <div className="absolute inset-y-0 right-2 flex items-center pointer-events-none z-20 pl-4">
-                  {trailingAdornment}
-              </div>}
+                <input
+                    id={id}
+                    ref={forwardedRef}
+                    type="text"
+                    className={`py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 ${className}`}
+                    {...rest}
+                />
+                {error && <div className="mt-1 text-red-600 text-xs" aria-errormessage={error}>{error}</div>}
+                {leadingAdornment &&
+                  <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none z-20 pl-4">
+                      {leadingAdornment}
+                  </div>}
+                {trailingAdornment &&
+                  <div className="absolute inset-y-0 right-2 flex items-center pointer-events-none z-20 pl-4">
+                      {trailingAdornment}
+                  </div>}
             </div>
         </div>
     )

@@ -19,6 +19,11 @@ const initialFormValues = {
     numberLots: 0
 }
 
+const initialErrorValues = {
+    common:"",
+    material: "",
+    numberLots: ""
+}
 export default function Page() {
     const formRef = useRef<any>();
     const formatter = useFormatter();
@@ -26,6 +31,7 @@ export default function Page() {
     const [state, action] = useFormState(bundleMaterial, {result: null});
     const {materials} = useAccountContext();
     const [fieldValues, setFieldValues] = useState(initialFormValues);
+    const [errors, setErrors] = useState(initialErrorValues);
     const {isLoading: isLoadingContracts, contracts = []} = useStockContracts();
     const t = useTranslations("material");
     const tc = useTranslations("common");
@@ -73,7 +79,8 @@ export default function Page() {
                     title: materialMap[contract.contractId],
                     content: (
                         <>
-                            <span>{`${t("in-stock")}: ${formatter.number( data.stockQuantity/1000, {minimumSignificantDigits: 3})} t`}</span>
+                            <div>{`${t("in-stock")}: ${formatter.number( data.stockQuantity/1000, {minimumSignificantDigits: 3})} t`}</div>
+                            <div>{`${t("produced-lots")}: ${data.nextLotNumber - 100}`}</div>
                         </>
                     ),
                     sub: ''
@@ -82,7 +89,32 @@ export default function Page() {
 
     }, [isLoadingContracts, contracts, materials]);
 
-    const canSubmit = fieldValues.material !== "0" && fieldValues.numberLots
+
+    useEffect( () => {
+        if(!contracts.length){
+            return;
+        }
+        if (!fieldValues.material) {
+            return setErrors({...errors, material: t("error-material-required")});
+        }
+        if (!fieldValues.material || !fieldValues.numberLots) {
+            return setErrors({...errors, numberLots: t("error-number-lots-required")});
+        }
+        const contract = contracts.find( c => c.contractId === fieldValues.material)
+        if(!contract){
+            return setErrors({...errors, common: t("error-contract-not-found")});
+        }
+        const {stockQuantity, lotUnitQuantity} = contract.getData();
+
+        if(fieldValues.numberLots > stockQuantity/lotUnitQuantity){
+            return setErrors({...errors, numberLots: t("error-number-lots-too-high")});
+        }
+
+        setErrors(initialErrorValues);
+
+    }, [fieldValues, contracts]);
+
+    const canSubmit = !errors.common && !errors.material && !errors.numberLots;
 
     return (
         <PageLayout title={t("bundle-material-title")}>
@@ -92,9 +124,8 @@ export default function Page() {
                 </div>
             </section>
 
-
-            <FormLayout>
-                <form action={action} onChange={handleOnChange}>
+            <FormLayout >
+                <form ref={formRef} action={action} onChange={handleOnChange}>
                     <div className="gap-4 grid grid-cols-1">
                         <DropDown label={t("material")} name="material">
                             <option value="0">-- Select --</option>
@@ -113,6 +144,7 @@ export default function Page() {
                             min={0} max={5000}
                             label={t("number-lots")}
                             required={true}
+                            error={errors.numberLots}
                         />
 
                         <div className="mt-4 border-b border-gray-200"/>

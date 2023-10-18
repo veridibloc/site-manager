@@ -8,7 +8,8 @@
     "collectors-receive": "Receive",
     "material": "Material",
     "material-register": "Register",
-    "material-bundle": "Bundle"
+    "material-bundle": "Bundle",
+    "material-lots": "Lots"
   },
   "collectors": {
     "receive-collection-title": "Receive Collection",
@@ -24,13 +25,24 @@
   "material": {
     "register-incoming-material-title": "Register Incoming Material",
     "bundle-material-title": "Bundle Material to Lot",
+    "bundle-lots-title": "List Lots",
     "material": "Material",
     "quantity": "Quantity",
     "number-lots": "Number of Lots",
     "pet": "PET - Polyethylene terephthalate",
     "pe": "PE - Polyethylene",
     "pvc": "PVC - Polyvinyl chloride",
-    "in-stock": "In Stock"
+    "in-stock": "In Stock",
+    "produced-lots": "Produced Lots",
+    "lot-number": "Lot Number",
+    "lot-size": "Lot Size",
+    "lot-sold": "Lot Sold",
+    "enter-search-term": "Enter search term",
+    "show-sold-lots": "Show Sold Lots",
+    "error-material-required": "Material is required",
+    "error-number-lots-required": "Number of lots is required",
+    "error-contract-not-found": "Contract not found",
+    "error-number-lots-too-high": "Not sufficient material to bundle"
   },
 
   "common": {

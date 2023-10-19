@@ -2,9 +2,6 @@ import {cache} from 'react'
 import {MaterialInfo, UserAccount} from '@/types/userAccount';
 import prisma from '@/back/prisma';
 import {User} from '@clerk/backend';
-
-export const revalidate = 3600 // revalidate the data at most every hour
-
 export const fetchUserAccount = cache(async (user: User, withSeed = false): Promise<UserAccount | null> => {
     const account = await prisma.account.findUnique({where: {userId: user.id}})
 

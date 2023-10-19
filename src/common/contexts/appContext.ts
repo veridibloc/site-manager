@@ -3,6 +3,7 @@ export interface AppContextType {
     Ledger: {
         DefaultNode: string,
         AddressPrefix: string
+        Ticker: string
         ExplorerUrl: string
     }
 }
@@ -12,6 +13,7 @@ export const AppContext = createContext<AppContextType>({
     Ledger: {
         DefaultNode: process.env.NEXT_PUBLIC_SIGNUM_DEFAULT_NODE || "http://localhost:6876",
         AddressPrefix: isMainNet ? "S" : "TS",
+        Ticker: isMainNet ? "SIGNA" : "TSIGNA",
         ExplorerUrl: isMainNet ? "https://chain.signum.network" : "https://t-chain.signum.network",
     },
 })

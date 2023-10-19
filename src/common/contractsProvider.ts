@@ -1,4 +1,8 @@
-import {CollectorTokenContractService, StockContractService} from "@veridibloc/smart-contracts"
+import {
+    CertificateContractService,
+    CollectorTokenContractService,
+    StockContractService
+} from "@veridibloc/smart-contracts"
 import {Ledger} from '@signumjs/core';
 import {Amount} from '@signumjs/util';
 import {getEnv} from '@/common/getEnv';
@@ -13,6 +17,19 @@ export class ContractsProvider {
 
     get ledger() {
         return this._ledger;
+    }
+
+    getCertificateTokenContract(contractId: string) {
+        return this.getCertificateTokenContractService().with(contractId);
+    }
+    getCertificateTokenContractService() {
+        return new CertificateContractService({
+            ledger: this.ledger,
+            codeHash: getEnv("NEXT_PUBLIC_CONTRACTS_CERTIFICATE_TOKEN_CODE_HASH"),
+            reference: getEnv("NEXT_PUBLIC_CONTRACTS_CERTIFICATE_TOKEN_REF"),
+            activationCosts: Amount.fromSigna(0.25),
+            baseTransactionFee: Amount.fromSigna(0.01),
+        })
     }
 
 

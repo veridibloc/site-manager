@@ -12,7 +12,9 @@
     "material-bundle": "Criar Lote",
     "material-lots": "Lotes"
   },
+  "dashboard": {
 
+  },
   "collectors": {
     "receive-collection-title": "Receber Coleta",
     "scan-qr-code": "Scan QR Code",

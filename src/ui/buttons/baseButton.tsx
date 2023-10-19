@@ -1,5 +1,3 @@
-import {className} from 'postcss-selector-parser';
-
 export interface BaseButtonProps {
     label: string
     type?: "button" | "submit" | "reset"

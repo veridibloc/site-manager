@@ -3,11 +3,14 @@
 import {PageLayout} from '@/ui/layout/pageLayout';
 import {useTranslations} from 'next-intl';
 import {useEffect, useMemo, useState} from 'react';
-import {FaCheck} from 'react-icons/fa6';
+import {FaCheck, FaRegEye} from 'react-icons/fa6';
 import {useStockContracts} from '@/common/hooks/useStockContracts';
 import {useAccountContext} from '@/common/hooks/useAccountContext';
 import {Table} from '@/ui/table';
 import {LotTableToolbar} from './_components/lotTableToolbar';
+import {useRouter} from 'next/navigation';
+import {ActionButton} from '@/ui/buttons/actionButton';
+import {ActionButtonGroup} from '@/ui/buttons/actionButtonGroup';
 
 
 interface SoldLot {
@@ -18,6 +21,7 @@ interface SoldLot {
 
 export default function Page() {
     const t = useTranslations("material");
+    const router = useRouter()
     const {materials} = useAccountContext();
     const [searchTerm, setSearchTerm] = useState("");
     const [soldLots, setSoldLots] = useState<Record<string, boolean>>({})
@@ -41,6 +45,10 @@ export default function Page() {
 
     }, [contracts, isLoadingContracts]);
 
+    const handleViewLot = (lotId: string) => {
+        return router.push(`/material/lots/${lotId}`);
+    }
+
     const rows = useMemo(() => {
 
         if (isLoadingContracts || !soldLots) {
@@ -56,7 +64,15 @@ export default function Page() {
             for (let lotNumber = 100; lotNumber < nextLotNumber; lotNumber++) {
                 const lotId = `${contract.contractId}-${lotNumber}`;
                 rows.push([
-                    materialName, lotId, `${lotUnitQuantity} kg`, soldLots[lotId] ? <FaCheck/> : ""
+                    materialName,
+                    lotId,
+                    `${lotUnitQuantity} kg`,
+                    soldLots[lotId] ? <FaCheck/> : "",
+                    <ActionButtonGroup key={`actions-${lotId}`}>
+                        <ActionButton actionName="view-lot" onClick={() => handleViewLot(lotId)}>
+                            <FaRegEye />
+                        </ActionButton>
+                    </ActionButtonGroup>
                 ])
             }
         }
@@ -87,7 +103,8 @@ export default function Page() {
                         {id: "material", content: t("material")},
                         {id: "lot-number", content: t("lot-number")},
                         {id: "lot-size", content: t("lot-size")},
-                        {id: "lot-sold", content: t("lot-sold")}
+                        {id: "lot-sold", content: t("lot-sold")},
+                        {id: "lot-actions", content: t("lot-actions")}
                     ]}
                     rows={filteredRows}
                 />

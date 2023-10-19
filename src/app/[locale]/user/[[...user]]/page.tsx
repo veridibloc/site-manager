@@ -1,8 +1,6 @@
 import {UserProfile} from "@clerk/nextjs";
-import {PageLayout} from '@/ui/layout/pageLayout';
 
 const UserProfilePage = () => (
-    // <PageLayout>
         <UserProfile path="/user"
                      appearance={{
                          elements: {
@@ -13,7 +11,6 @@ const UserProfilePage = () => (
                          }
                      }}
         />
-    // </PageLayout>
 );
 
 export default UserProfilePage;

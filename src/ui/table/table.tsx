@@ -1,4 +1,4 @@
-import {ReactElement} from 'react';
+import {ReactElement, useEffect, useRef} from 'react';
 
 type TableElement = ReactElement | string;
 
@@ -15,6 +15,14 @@ interface Props {
 
 export const Table = ({rows, toolbar, headers = []}: Props) => {
 
+    const instance = useRef(0)
+
+    useEffect(() => {
+        if(instance.current){
+            ++instance.current;
+        }
+    }, []);
+
     if (rows.length && rows[0].length !== headers.length) {
         console.error("Number of rows and headers must be equal")
     }
@@ -30,7 +38,7 @@ export const Table = ({rows, toolbar, headers = []}: Props) => {
                                 {toolbar}
                             </div>
                         )}
-                        <div className="overflow-hidden">
+                        <div className="overflow-auto" style={{ maxHeight: '60vh'}}>
                             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                 <thead className="bg-gray-50 dark:bg-gray-700">
                                 <tr>
@@ -40,13 +48,14 @@ export const Table = ({rows, toolbar, headers = []}: Props) => {
                                     ))}
                                 </tr>
                                 </thead>
+
                                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                                 {rows.map((row, index) => {
-                                        const id = `${headers[index]!.id}-${index}`;
+                                        const baseId = `table-${instance.current}`;
                                         return (
-                                            <tr key={`tr-${id}`} className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                                            <tr key={`${baseId}-row-${index}`} className="hover:bg-gray-100 dark:hover:bg-gray-700">
                                                 {row.map((cell, index) => (
-                                                    <td key={`td-${id}`}
+                                                    <td key={`${baseId}-cell-${index}`}
                                                         className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{cell}</td>
                                                 ))
                                                 }

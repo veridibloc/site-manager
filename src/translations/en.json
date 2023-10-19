@@ -24,10 +24,14 @@
 
   "material": {
     "register-incoming-material-title": "Register Incoming Material",
+    "separation-date": "Separation Date",
+    "proof": "Proof",
     "bundle-material-title": "Bundle Material to Lot",
     "bundle-lots-title": "List Lots",
     "material": "Material",
     "quantity": "Quantity",
+    "weight": "Weight",
+    "creation-date": "Creation Date",
     "number-lots": "Number of Lots",
     "pet": "PET - Polyethylene terephthalate",
     "pe": "PE - Polyethylene",
@@ -37,6 +41,9 @@
     "lot-number": "Lot Number",
     "lot-size": "Lot Size",
     "lot-sold": "Lot Sold",
+    "lot-actions": "Lot Actions",
+    "lot-details": "Lot Details {id}",
+    "lot-composition": "Lot Composition",
     "enter-search-term": "Enter search term",
     "show-sold-lots": "Show Sold Lots",
     "error-material-required": "Material is required",
@@ -46,7 +53,10 @@
   },
 
   "common": {
+    "actions": "Actions",
     "confirm": "Confirm",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No"
   }
 }

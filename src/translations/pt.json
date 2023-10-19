@@ -26,10 +26,14 @@
 
   "material": {
     "register-incoming-material-title": "Cadastrar Material Separado",
+    "proof": "Prova",
+    "separation-date": "Data de Separação",
     "bundle-material-title": "Criar Lote de Material",
     "bundle-lots-title": "Listar Lotes",
     "material": "Material",
     "quantity": "Quantidade",
+    "weight": "Peso",
+    "creation-date": "Data de Criação",
     "number-lots": "Número de Lotes",
     "pet": "PET - Polietileno de Tereftalato",
     "pe": "PE - Polietileno",
@@ -39,6 +43,9 @@
     "lot-number": "Número do Lote",
     "lot-size": "Tamanho do Lote",
     "lot-sold": "Lote Vendido",
+    "lot-actions": "Ações do Lote",
+    "lot-details": "Detalhes do Lote {id}",
+    "lot-composition": "Composição do Lote",
     "enter-search-term": "Digite o termo de pesquisa",
     "show-sold-lots": "Mostrar Lotes Vendidos",
     "error-material-required": "Material é obrigatório",
@@ -47,7 +54,10 @@
     "error-number-lots-too-high": "Quantidade de material insuficiente para criar lote"
   },
   "common": {
+    "actions": "Ações",
     "cancel": "Cancelar",
-    "confirm": "Confirmar"
+    "confirm": "Confirmar",
+    "yes": "Sim",
+    "no": "Não"
   }
 }

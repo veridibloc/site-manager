@@ -78,7 +78,7 @@ export default function Page() {
         }
 
         return rows;
-    }, [isLoadingContracts, contracts, materials, soldLots]);
+    }, [isLoadingContracts, contracts, materials, soldLots, t]);
 
     const filteredRows = useMemo(() => {
         if (!searchTerm) return rows;

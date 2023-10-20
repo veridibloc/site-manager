@@ -83,7 +83,7 @@ export default function Page() {
                 }
             })
 
-    }, [isLoadingContracts, contracts, materials]);
+    }, [isLoadingContracts, contracts, materials, formatter, t]);
 
     const canSubmit = fieldValues.material !== "0" && fieldValues.quantity > 0
 

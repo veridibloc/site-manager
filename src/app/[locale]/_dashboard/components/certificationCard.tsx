@@ -1,11 +1,11 @@
 import {CertificateToken} from '@/types/dashboardData';
-import {FaCertificate, FaRecycle} from 'react-icons/fa6';
+import {FaRecycle} from 'react-icons/fa6';
 import {ChainValue} from '@signumjs/util';
 import {useFormatter, useTranslations} from 'next-intl';
 import certImage from "@/assets/img/cert_bg.jpg";
 import Link from 'next/link';
-import {AppContext} from '@/common/contexts/appContext';
 import {useAppContext} from '@/common/hooks/useAppContext';
+import Image from 'next/image';
 
 
 interface Props {

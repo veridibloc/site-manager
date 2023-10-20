@@ -10,10 +10,10 @@ import {registerCollection} from './actions';
 import {TextInputWithButton} from '@/ui/inputs/textInputWithButton';
 import {DropDown} from '@/ui/inputs/dropdown';
 import {NumberInput} from '@/ui/inputs/numberInput';
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 import {FormSubmitButton} from '@/ui/buttons/formSubmitButton';
 import {useAppContext} from '@/common/hooks/useAppContext';
-import {LedgerClientFactory, setAccountInfo} from '@signumjs/core';
+import {LedgerClientFactory} from '@signumjs/core';
 
 const initialFormValues = {
     collector: "",

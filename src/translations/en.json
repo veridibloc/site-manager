@@ -25,10 +25,18 @@
       "paper": "Paper",
       "glass": "Glass"
     },
+    "certificate": {
+      "certificate": "Certificate",
+      "proved-asset": "VeridiBloc proved asset"
+    },
+    "balance" : {
+      "credits": "Credits"
+    },
     "chart": {
       "material": "Material",
       "lots": "Lots",
       "unbundled": "Separated Material",
+      "sold": "Sold Material",
       "tons": "tons"
     }
   },

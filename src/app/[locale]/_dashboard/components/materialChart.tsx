@@ -5,6 +5,7 @@ export interface DataItem {
     name: string;
     unbundled: number;
     lots: number;
+    sold: number
 }
 interface Props {
     data : DataItem[]
@@ -26,11 +27,13 @@ export const MaterialChart = ({data} : Props) => {
                 }}
             >
                 <XAxis dataKey="name" />
-                <YAxis label={{ value: t("tons"), position: "insideLeft", angle: -90}}/>
+                <YAxis yAxisId="left" orientation="left" label={{ value: t("tons"), position: "insideLeft", angle: -90}}/>
+                <YAxis yAxisId="right" orientation="right" label={{ value: t("tons"), position: "insideRight", angle: -270}}/>
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="lots" stackId="a" fill="#93c5fd" name={t("lots")}/>
-                <Bar dataKey="unbundled" stackId="a" fill="#86efac" name={t("unbundled")}/>
+                <Bar yAxisId="left" dataKey="lots" stackId="a" fill="#93c5fd" name={t("lots")}/>
+                <Bar yAxisId="left" dataKey="unbundled" stackId="a" fill="#86efac" name={t("unbundled")}/>
+                <Bar yAxisId="right" dataKey="sold" stackId="a" fill="#cecece" name={t("sold")}/>
             </BarChart>
         </ResponsiveContainer>
     )

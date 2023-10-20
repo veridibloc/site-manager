@@ -9,6 +9,7 @@ export interface ChartDataItem {
     name: string;
     unbundled: number;
     lots: number;
+    sold: number;
 }
 
 export interface CollectionMaterial {

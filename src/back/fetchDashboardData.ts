@@ -51,10 +51,12 @@ async function fetchChartData(stockContracts: StockContract[], materials: Materi
         const lotreceipts = await contract.getLotReceipts();
         const lastSoldLot = lotreceipts.length && lotreceipts[0].lotNumber;
         const lotsInStock = Math.max(0, nextLotNumber - lastSoldLot - 101);
+        const soldLots = Math.max(0, lastSoldLot - 101);
         result.push({
             name: material.type.toUpperCase(),
             unbundled: stockQuantity / 1000,
-            lots: lotsInStock * lotUnitQuantity / 1000,
+            lots: (lotsInStock * lotUnitQuantity) / 1000,
+            sold: (soldLots * lotUnitQuantity) / 1000
         })
     }
 
@@ -167,10 +169,11 @@ export const fetchDashboardData = async (user: User): Promise<DashboardData> => 
             certificateContractIds.add(d.certificateContractId)
         }
     }
-    // todo: parallelize
-    const certificateTokens = await fetchCertificateTokens(Array.from(certificateContractIds), ledgerAccount);
-    const chartData = await fetchChartData(stockContracts, materials);
-    const collectorStats = await fetchCollectorStats(provider, userAddress);
+    const [certificateTokens, chartData, collectorStats] = await Promise.all([
+        fetchCertificateTokens(Array.from(certificateContractIds), ledgerAccount),
+        fetchChartData(stockContracts, materials),
+        fetchCollectorStats(provider, userAddress)
+    ])
     return {
         balance: ledgerAccount.guaranteedBalanceNQT,
         certificateTokens,

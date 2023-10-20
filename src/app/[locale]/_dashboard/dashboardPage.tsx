@@ -10,16 +10,16 @@ import {MaterialChart} from '@/app/[locale]/_dashboard/components/materialChart'
 import {CollectedStatsCard} from '@/app/[locale]/_dashboard/components/collectedStatsCard';
 
 const mockedData = {
-        grantedTokens: 18.67,
-        collectorCount: 22,
-        collectedMaterial: [
-            {
-                id: 1,
-                name: "plastic",
-                quantity: 187
-            }
-        ],
-    }
+    grantedTokens: 18.67,
+    collectorCount: 22,
+    collectedMaterial: [
+        {
+            id: 1,
+            name: "plastic",
+            quantity: 187
+        }
+    ],
+}
 
 interface Props {
     data: DashboardData
@@ -52,12 +52,14 @@ export function DashboardPage({data}: Props) {
     return (
         <PageLayout>
             <section className="w-full mx-auto my-4 p-4 border border-gray-300 rounded">
-                <div className="flex md:flex-row flex-col justify-around py-4 gap-x-2">
-                    {certificateTokens.map((cert) => <CertificationCard key={cert.id} certificateToken={cert}/>)}
+                <div className="flex md:flex-row flex-wrap justify-center md:justify-between gap-4">
+                    <div className="flex md:flex-row flex-wrap gap-4 justify-center md:justify-between">
+                        {certificateTokens.map((cert) => <CertificationCard key={cert.id} certificateToken={cert}/>)}
+                    </div>
                     <BalanceCard balance={balance}/>
                 </div>
             </section>
-            <section className="w-full my-4 flex flex-col md:flex-row gap-x-4 h-auto">
+            <section className="w-full my-4 flex flex-col-reverse md:flex-row gap-4 h-auto">
                 <div className="w-full p-4 border border-gray-300 rounded lg:w-3/4 xl:w-1/2">
                     <MaterialChart data={chartData}/>
                 </div>

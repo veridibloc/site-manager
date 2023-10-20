@@ -9,10 +9,7 @@
     "material": "Material",
     "material-register": "Cadastrar",
     "material-bundle": "Criar Lote",
-    "material-lots": "Lotes",
-    "plastic": "Plástico",
-    "paper": "Papel",
-    "glass": "Vidro"
+    "material-lots": "Lotes"
   },
   "dashboard": {
     "title": "Painel de Controle",
@@ -20,7 +17,26 @@
       "material": "Material",
       "lots": "Lotes",
       "unbundled": "Materiais Separados",
-      "tons": "toneladas"
+      "tons": "toneladas",
+      "sold": "Materiais Vendidos"
+    },
+    "collection-stats": {
+      "collection-stats": "Estatísticas de Coleta",
+      "collectors-count": "Contador de Catadores",
+      "granted-tokens": "Tokens Concedidos",
+      "material": "Material",
+      "quantity": "Quantidade",
+      "collected-material": "Material Coletado",
+      "plastic": "Plástico",
+      "paper": "Papel",
+      "glass": "Vidro"
+    },
+    "certificate": {
+      "certificate": "Certificado",
+      "proved-asset": "Ativo aprovado pela VeridiBloc"
+    },
+    "balance" : {
+      "credits": "Créditos"
     }
   },
   "collectors": {

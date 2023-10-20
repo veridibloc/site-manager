@@ -111,10 +111,11 @@ export default function Page() {
                         <DropDown label={t("material")} name="material">
                             <option value="0">-- Select --</option>
                             {
-                                CollectionMaterials.map( material => (
-                                    <option key={material.id} value={material.id}>{t(material.label)}</option>
-                                ))
-                            }
+                                Object.entries(CollectionMaterials).map(([id, label]) =>(
+                                    <option key={id} value={id}>{t(label)}</option>
+                                    ))
+
+                            })
                         </DropDown>
 
                         <NumberInput

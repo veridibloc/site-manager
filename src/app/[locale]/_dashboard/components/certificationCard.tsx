@@ -1,4 +1,3 @@
-import {SimpleCard} from '@/ui/cards/simpleCard';
 import {CertificateToken} from '@/types/dashboardData';
 import {FaCertificate, FaRecycle} from 'react-icons/fa6';
 import {ChainValue} from '@signumjs/util';
@@ -16,7 +15,7 @@ export const CertificationCard = ({certificateToken, className = ""}: Props) => 
     const value = Number(ChainValue.create(certificateToken.decimals).setAtomic(certificateToken.quantity).getCompound())
 
     return <div
-        className={`relative flex flex-col w-[200px] border drop-shadow-lg rounded-xl dark:border-gray-700 dark:shadow-slate-700/[.7] bg-green-50 ${className}`}>
+        className={`relative flex flex-col w-[200px] border drop-shadow rounded-xl dark:border-gray-700 dark:shadow-slate-700/[.7] bg-green-50 ${className}`}>
         <div className="absolute top-0 right-0 p-2">
             <FaCertificate className="text-green-300 text-4xl" />
         </div>

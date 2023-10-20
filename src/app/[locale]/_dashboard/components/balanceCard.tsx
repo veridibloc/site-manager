@@ -16,7 +16,7 @@ export const BalanceCard = ({balance, className = ""}: Props) => {
     const signa = Math.floor(value);
     const fraction = value - signa;
     return <div
-        className={`relative flex flex-col w-[200px] border drop-shadow-lg rounded-xl dark:border-gray-700 dark:shadow-slate-700/[.7] bg-blue-50 ${className}`}>
+        className={`relative flex flex-col w-[200px] border drop-shadow rounded-xl dark:border-gray-700 dark:shadow-slate-700/[.7] bg-blue-50 ${className}`}>
         <div className="absolute top-0 right-0 p-2">
             <FaRegMoneyBill1 className="text-blue-300 text-4xl" />
         </div>

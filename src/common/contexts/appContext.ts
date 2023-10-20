@@ -5,7 +5,8 @@ export interface AppContextType {
         AddressPrefix: string
         Ticker: string
         ExplorerUrl: string
-    }
+    },
+    CollectionMaterials: Record<string,string>
 }
 
 const isMainNet = process.env.NEXT_PUBLIC_SIGNUM_NETWORK === "Signum"
@@ -16,4 +17,9 @@ export const AppContext = createContext<AppContextType>({
         Ticker: isMainNet ? "SIGNA" : "TSIGNA",
         ExplorerUrl: isMainNet ? "https://chain.signum.network" : "https://t-chain.signum.network",
     },
+    CollectionMaterials: {
+        "1": "plastic",
+        "2": "paper",
+        "3": "glass"
+    }
 })

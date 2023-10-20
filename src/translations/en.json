@@ -11,6 +11,28 @@
     "material-bundle": "Bundle",
     "material-lots": "Lots"
   },
+
+  "dashboard": {
+    "title": "Dashboard",
+    "collection-stats": {
+      "collection-stats": "Collection Stats",
+      "collectors-count": "Overall Collectors",
+      "granted-tokens": "Granted Collector Tokens",
+      "material": "Material",
+      "quantity": "Quantity",
+      "collected-material": "Collected Material",
+      "plastic": "Plastic",
+      "paper": "Paper",
+      "glass": "Glass"
+    },
+    "chart": {
+      "material": "Material",
+      "lots": "Lots",
+      "unbundled": "Separated Material",
+      "tons": "tons"
+    }
+  },
+
   "collectors": {
     "receive-collection-title": "Receive Collection",
     "scan-qr-code": "Scan QR Code",
@@ -19,7 +41,10 @@
     "material": "Material",
     "quantity": "Quantity",
     "enter-address-or-scan": "Enter address or scan QR code",
-    "account-not-found": "Account not found"
+    "account-not-found": "Account not found",
+    "plastic": "Plastic",
+    "paper": "Paper",
+    "glass": "Glass"
   },
 
   "material": {

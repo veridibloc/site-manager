@@ -2,7 +2,6 @@
   "errors": {
     "not-found": "Não Encontrado"
   },
-
   "navigation": {
     "dashboard": "Painel de Controle",
     "collectors": "Catadores",
@@ -10,10 +9,19 @@
     "material": "Material",
     "material-register": "Cadastrar",
     "material-bundle": "Criar Lote",
-    "material-lots": "Lotes"
+    "material-lots": "Lotes",
+    "plastic": "Plástico",
+    "paper": "Papel",
+    "glass": "Vidro"
   },
   "dashboard": {
-
+    "title": "Painel de Controle",
+    "chart": {
+      "material": "Material",
+      "lots": "Lotes",
+      "unbundled": "Materiais Separados",
+      "tons": "toneladas"
+    }
   },
   "collectors": {
     "receive-collection-title": "Receber Coleta",
@@ -23,9 +31,11 @@
     "material": "Material",
     "quantity": "Quantidade",
     "enter-address-or-scan": "Digite o endereço ou escaneie o QR Code",
-    "account-not-found": "Conta não encontrada"
+    "account-not-found": "Conta não encontrada",
+    "plastic": "Plástico",
+    "paper": "Papel",
+    "glass": "Vidro"
   },
-
   "material": {
     "register-incoming-material-title": "Cadastrar Material Separado",
     "proof": "Prova",

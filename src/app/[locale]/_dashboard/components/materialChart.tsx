@@ -1,17 +1,17 @@
+'use client'
 import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, ResponsiveContainer} from "recharts"
-
-
-interface DataItem {
+import {useTranslations} from 'next-intl';
+export interface DataItem {
     name: string;
-    inStockKg: number;
-    lotsKg: number;
-    soldLotsKg: number;
+    unbundled: number;
+    lots: number;
 }
 interface Props {
     data : DataItem[]
 }
 
 export const MaterialChart = ({data} : Props) => {
+    const t = useTranslations('dashboard.chart')
     return (
         <ResponsiveContainer width="100%" height="100%">
             <BarChart
@@ -25,14 +25,12 @@ export const MaterialChart = ({data} : Props) => {
                     bottom: 5,
                 }}
             >
-                <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
-                <YAxis />
+                <YAxis label={{ value: t("tons"), position: "insideLeft", angle: -90}}/>
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="soldLotsKg" stackId="a" fill="#acacac " />
-                <Bar dataKey="lotsKg" stackId="a" fill="#1fd4ff" />
-                <Bar dataKey="inStockKg" stackId="a" fill="#00ff3d" />
+                <Bar dataKey="lots" stackId="a" fill="#93c5fd" name={t("lots")}/>
+                <Bar dataKey="unbundled" stackId="a" fill="#86efac" name={t("unbundled")}/>
             </BarChart>
         </ResponsiveContainer>
     )

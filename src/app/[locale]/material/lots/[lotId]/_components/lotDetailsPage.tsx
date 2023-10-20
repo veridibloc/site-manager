@@ -9,26 +9,11 @@ import {Transaction} from '@signumjs/core';
 import {ChainTime, convertHexEndianess, convertHexStringToDecString} from '@signumjs/util';
 import {Table} from '@/ui/table';
 import {useMemo} from 'react';
-import {FaFingerprint, FaRegEye} from "react-icons/fa6"
+import {FaFingerprint} from "react-icons/fa6"
 import {ActionButtonGroup} from '@/ui/buttons/actionButtonGroup';
 import {ActionButton} from '@/ui/buttons/actionButton';
 import Link from 'next/link';
-// import {useRouter} from 'next/navigation';
-
-interface TextItemProps {
-    label: string
-    text: string
-}
-
-const TextItem = ({text, label} : TextItemProps) => {
-
-    return (
-        <div className="relative">
-            <label htmlFor={`ti-${label}`} className="text-xs dark:text-gray-300 text-gray-500">{label}</label>
-            <p id={`ti-${label}`} className="dark:text-gray-200 text-gray-700">{text}</p>
-        </div>
-    )
-}
+import {LabeledTextItem} from '@/ui/labeledTextItem';
 
 
 export interface LotDetailsData {
@@ -102,16 +87,16 @@ export const LotDetailsPage = ({data}: Props) => {
                     </div>
                     <div className="flex flex-col w-full gap-2 border-gray-300 border rounded p-4">
                         <div>
-                            <TextItem label={t("material")} text={materialName}/>
+                            <LabeledTextItem label={t("material")} text={materialName}/>
                         </div>
                         <div>
-                            <TextItem label={t("weight")} text={`${number(lotWeight)} kg` }/>
+                            <LabeledTextItem label={t("weight")} text={`${number(lotWeight)} kg` }/>
                         </div>
                         <div>
-                            <TextItem label={t("creation-date")} text={creationDate}/>
+                            <LabeledTextItem label={t("creation-date")} text={creationDate}/>
                         </div>
                         <div>
-                            <TextItem label={t("lot-sold")} text={soldDate}/>
+                            <LabeledTextItem label={t("lot-sold")} text={soldDate}/>
                         </div>
                     </div>
                 </section>

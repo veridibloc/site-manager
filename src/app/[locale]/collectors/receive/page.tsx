@@ -2,7 +2,6 @@
 
 import {PageLayout} from '@/ui/layout/pageLayout';
 import {FormLayout} from '@/ui/layout/formLayout';
-import {TextInput} from '@/ui/inputs/textInput';
 import {useTranslations} from 'next-intl';
 import {FaCheckCircle, FaTimesCircle} from "react-icons/fa"
 // @ts-ignore
@@ -15,8 +14,6 @@ import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {FormSubmitButton} from '@/ui/buttons/formSubmitButton';
 import {useAppContext} from '@/common/hooks/useAppContext';
 import {LedgerClientFactory, setAccountInfo} from '@signumjs/core';
-// @ts-ignore
-import debounce from 'lodash.debounce';
 
 const initialFormValues = {
     collector: "",
@@ -30,7 +27,7 @@ export default function Page() {
     const [fieldValues, setFieldValues] = useState(initialFormValues)
     const [accountAddress, setAccountAddress] = useState<string|null>("")
     const t = useTranslations("collectors");
-    const {Ledger: {DefaultNode}} = useAppContext();
+    const {Ledger: {DefaultNode}, CollectionMaterials} = useAppContext();
 
     const handleOnScanQrCode = () => {
         console.log("scan QrCode")
@@ -113,9 +110,11 @@ export default function Page() {
 
                         <DropDown label={t("material")} name="material">
                             <option value="0">-- Select --</option>
-                            <option value="1">Plastic</option>
-                            <option value="2">Glass</option>
-                            <option value="3">Paper</option>
+                            {
+                                CollectionMaterials.map( material => (
+                                    <option key={material.id} value={material.id}>{t(material.label)}</option>
+                                ))
+                            }
                         </DropDown>
 
                         <NumberInput

@@ -49,7 +49,7 @@ export const Table = ({rows, toolbar, headers = []}: Props) => {
                                 </tr>
                                 </thead>
 
-                                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                                <tbody className="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-700">
                                 {rows.map((row, index) => {
                                         const baseId = `table-${instance.current}`;
                                         return (

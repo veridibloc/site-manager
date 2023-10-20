@@ -1,9 +1,12 @@
 import {UserWebhookEvent, UserJSON} from '@clerk/nextjs/server'
 import {createBip39Seed, encrypt} from '@/back/crypto';
 import {generateMasterKeys} from '@signumjs/crypto';
-import {Address} from '@signumjs/core';
+import {Address, AttachmentMessage} from '@signumjs/core';
 import {getEnv} from '@/common/getEnv';
 import db from '@/back/prisma'
+import {getLedger} from '@/common/getLedger';
+import {Amount} from '@signumjs/util';
+
 
 /*
 {
@@ -55,7 +58,7 @@ export async function handleUserCreation(event: UserWebhookEvent) {
     const encryptedSeed = encrypt(seed, getEnv('AES_SECRET')) as string;
     const {publicKey} = generateMasterKeys(seed);
     const address = Address.fromPublicKey(publicKey);
-    console.log("Creating account: ", user.email_addresses[0].email_address, user.id);
+    console.info("Creating account: ", user.email_addresses[0].email_address, user.id);
     await db.account.create({
         data: {
             userId: user.id,
@@ -65,5 +68,25 @@ export async function handleUserCreation(event: UserWebhookEvent) {
             status: 'Active'
         }
     })
+    console.info("Activating Account: ",address.getReedSolomonAddress(false), user.id);
+    await activateLedgerAccount(address);
     console.log("User successfully created", address.getNumericId());
+}
+
+async function activateLedgerAccount(address: Address) {
+    const ledger = getLedger(getEnv('NEXT_PUBLIC_SIGNUM_DEFAULT_NODE'));
+    const {publicKey, signPrivateKey} = generateMasterKeys(getEnv('VERIDIBLOC_ACTIVATION_ACCOUNT_SEED'))
+    return ledger.transaction.sendAmountToSingleRecipient({
+        amountPlanck: Amount.fromSigna(getEnv('ACTIVATION_AMOUNT_SIGNA') || '0.01').getPlanck(),
+        feePlanck: Amount.fromSigna(0.02).getPlanck(),
+        recipientId: address.getNumericId(),
+        recipientPublicKey: address.getPublicKey(),
+        senderPublicKey:publicKey,
+        senderPrivateKey:signPrivateKey,
+        attachment: new AttachmentMessage({
+            message: 'Bem vindo à Veridibloc! Uma nova era de reciclagem começou! ♻️ - Movido pelo blockchain ecológico Signum.',
+            messageIsText: true
+        })
+    })
+
 }

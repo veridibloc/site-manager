@@ -60,7 +60,7 @@ export function DashboardPage({data}: Props) {
                 </div>
             </section>
             <section className="w-full my-4 flex flex-col-reverse md:flex-row gap-4 h-auto">
-                <div className="w-full p-4 border border-gray-300 rounded lg:w-3/4 xl:w-1/2">
+                <div className="w-full p-4 border border-gray-300 rounded h-[300px] md:h-auto lg:w-3/4 xl:w-1/2">
                     <MaterialChart data={chartData}/>
                 </div>
                 <div className="w-full p-4 border border-gray-300 rounded lg:w-3/4 xl:w-1/2">

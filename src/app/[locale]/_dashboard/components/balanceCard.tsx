@@ -26,15 +26,14 @@ export const BalanceCard = ({balance, className = ""}: Props) => {
                 {t("credits")}
             </h3>
             <div className="leading-tight">
-
-                <p className="mt-1 text-gray-800 dark:text-gray-400 justify-center flex flex-row items-baseline">
+                <div className="mt-1 text-gray-800 dark:text-gray-400 justify-center flex flex-row items-baseline">
                     <div className="text-3xl">
                         {number(signa, {maximumFractionDigits: 4})}
                     </div>
                     <small className="text-xs">
                         {number(fraction, {maximumFractionDigits: 4}).replace('0.', '.').replace('0,', ',')}
                     </small>
-                </p>
+                </div>
                 <h3 className="text-gray-800 dark:text-white text-center">
                     {Ticker}
                 </h3>

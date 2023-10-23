@@ -22,7 +22,7 @@ const ClientAppLayout = ({children, account}: Props) => {
         <AccountContext.Provider value={account}>
             <SidebarToggle/>
             <Sidebar/>
-            <main className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
+            <main className="w-full pt-0 md:pt-10 md:px-8 lg:pl-72">
                 {children}
             </main>
         </AccountContext.Provider>

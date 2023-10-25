@@ -37,7 +37,8 @@
       "lots": "Lots",
       "unbundled": "Separated Material",
       "sold": "Sold Material",
-      "tons": "tons"
+      "tons_in_stock": "In Stock (tons)",
+      "tons_sold": "Sold (tons)"
     }
   },
 

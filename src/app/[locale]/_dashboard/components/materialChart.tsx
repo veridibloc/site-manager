@@ -27,13 +27,13 @@ export const MaterialChart = ({data} : Props) => {
                 }}
             >
                 <XAxis dataKey="name" />
-                <YAxis yAxisId="left" orientation="left" label={{ value: t("tons"), position: "insideLeft", angle: -90}}/>
-                <YAxis yAxisId="right" orientation="right" label={{ value: t("tons"), position: "insideRight", angle: -270}}/>
+                <YAxis yAxisId="left" orientation="left" label={{ value: t("tons_in_stock"), position: "insideLeft", angle: -90}}/>
+                <YAxis yAxisId="right" orientation="right" label={{ value: t("tons_sold"), position: "insideRight", angle: -270, dy:-10}}/>
                 <Tooltip />
                 <Legend />
                 <Bar yAxisId="left" dataKey="lots" stackId="a" fill="#93c5fd" name={t("lots")}/>
                 <Bar yAxisId="left" dataKey="unbundled" stackId="a" fill="#86efac" name={t("unbundled")}/>
-                <Bar yAxisId="right" dataKey="sold" stackId="a" fill="#cecece" name={t("sold")}/>
+                <Bar yAxisId="right" dataKey="sold" stackId="a" fill="#ababab" name={t("sold")}/>
             </BarChart>
         </ResponsiveContainer>
     )

@@ -42,16 +42,17 @@ async function fetchCertificateTokens(certificateContractIds: string[], account:
 
 
 async function fetchChartData(stockContracts: StockContract[], materials: MaterialInfo[]): Promise<ChartDataItem[]> {
+    
     const result: ChartDataItem[] = [];
     for (let contract of stockContracts) {
         const material = materials.find(m => m.stockContractId === contract.contractId);
         if (!material) continue;
         const {lotUnitQuantity, stockQuantity, nextLotNumber} = contract.getData();
-        // newest is always first element
-        const lotreceipts = await contract.getLotReceipts();
-        const lastSoldLot = lotreceipts.length && lotreceipts[0].lotNumber;
-        const lotsInStock = Math.max(0, nextLotNumber - lastSoldLot - 101);
-        const soldLots = Math.max(0, lastSoldLot - 101);
+        const lotReceipts = await contract.getLotReceipts();
+        const soldLots = lotReceipts.length;
+        const totalProducedLots = Math.max(0, nextLotNumber - 100);
+        const lotsInStock = totalProducedLots - lotReceipts.length;
+
         result.push({
             name: material.type.toUpperCase(),
             unbundled: stockQuantity / 1000,
@@ -59,7 +60,6 @@ async function fetchChartData(stockContracts: StockContract[], materials: Materi
             sold: (soldLots * lotUnitQuantity) / 1000
         })
     }
-
     return result;
 }
 

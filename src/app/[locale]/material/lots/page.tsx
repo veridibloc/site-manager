@@ -2,12 +2,12 @@
 
 import {PageLayout} from '@/ui/layout/pageLayout';
 import {useTranslations} from 'next-intl';
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 import {FaCheck, FaRegEye} from 'react-icons/fa6';
 import {useStockContracts} from '@/common/hooks/useStockContracts';
 import {useAccountContext} from '@/common/hooks/useAccountContext';
 import {Table} from '@/ui/table';
-import {LotTableToolbar} from './_components/lotTableToolbar';
+import {LotTableToolbar, ShowFilter} from './_components/lotTableToolbar';
 import {useRouter} from 'next/navigation';
 import {ActionButton} from '@/ui/buttons/actionButton';
 import {ActionButtonGroup} from '@/ui/buttons/actionButtonGroup';
@@ -21,27 +21,39 @@ interface SoldLot {
 
 export default function Page() {
     const t = useTranslations("material");
+    const mounted = useRef(false);
     const router = useRouter()
     const {materials} = useAccountContext();
     const [searchTerm, setSearchTerm] = useState("");
     const [soldLots, setSoldLots] = useState<Record<string, boolean>>({})
-    const [showSold, setShowSold] = useState(false)
+    const [lotFilter, setLotFilter] = useState<ShowFilter>(ShowFilter.All)
     const {isLoading: isLoadingContracts, contracts = []} = useStockContracts();
+
+    useEffect(() => {
+        mounted.current = true;
+        return () => {
+            mounted.current = false;
+        }
+    }, [])
 
     useEffect(() => {
 
         if (isLoadingContracts) return;
 
         const requests = contracts.map(c => c.getLotReceipts())
-        Promise.all(requests).then((receipts) => {
-            const soldLots = receipts.reduce(
-                (acc, r, index) => {
-                    // @ts-ignore
-                    acc[`${contracts[index].contractId}-${r.lotNumber}`] = true;
-                    return acc
-                }, {} as Record<string, boolean>)
-            setSoldLots(soldLots);
-        })
+        Promise
+            .all(requests)
+            .then((receipts) => {
+                if (!mounted.current) return;
+                const soldLots = receipts.reduce(
+                    (acc, lots, index) => {
+                        for (let l of lots) {
+                            acc[`${contracts[index].contractId}-${l.lotNumber}`] = true;
+                        }
+                        return acc
+                    }, {} as Record<string, boolean>)
+                setSoldLots(soldLots);
+            })
 
     }, [contracts, isLoadingContracts]);
 
@@ -70,7 +82,7 @@ export default function Page() {
                     soldLots[lotId] ? <FaCheck/> : "",
                     <ActionButtonGroup key={`actions-${lotId}`}>
                         <ActionButton actionName="view-lot" onClick={() => handleViewLot(lotId)}>
-                            <FaRegEye />
+                            <FaRegEye/>
                         </ActionButton>
                     </ActionButtonGroup>
                 ])
@@ -81,14 +93,29 @@ export default function Page() {
     }, [isLoadingContracts, contracts, materials, soldLots, t]);
 
     const filteredRows = useMemo(() => {
-        if (!searchTerm) return rows;
-
         const term = searchTerm.toLowerCase();
         return rows.filter(row => {
+            let isAccepted = true;
+            switch (lotFilter) {
+                case ShowFilter.InStock:
+                    isAccepted = !soldLots[row[1]];
+                    break;
+                case ShowFilter.SoldOnly:
+                    isAccepted = soldLots[row[1]];
+                    break;
+                case ShowFilter.All:
+                default:
+                    isAccepted = true
+
+            }
+            if(!searchTerm){
+                return isAccepted
+            }
+
             // @ts-ignore
-            return row[0].toLowerCase().includes(term) || row[1].toLowerCase().includes(term)
+            return isAccepted && (row[0].toLowerCase().includes(term) || row[1].toLowerCase().includes(term))
         })
-    }, [rows, searchTerm]);
+    }, [rows, searchTerm, soldLots, lotFilter]);
 
     return (
         <PageLayout title={t("bundle-lots-title")}>
@@ -96,8 +123,9 @@ export default function Page() {
                 <Table
                     toolbar={<LotTableToolbar
                         onSearch={setSearchTerm}
-                        onShowSold={setShowSold}
-                        showSold={showSold}/>
+                        onShowFilter={setLotFilter}
+                        showFilter={lotFilter}
+                    />
                     }
                     headers={[
                         {id: "material", content: t("material")},

@@ -3,14 +3,20 @@ import {TextInput} from '@/ui/inputs/textInput';
 import {FaMagnifyingGlass} from "react-icons/fa6"
 import {CheckBox} from '@/ui/inputs/checkBox';
 
-interface Props {
-    onSearch: (value: string) => void
-    onShowSold: (shouldShow: boolean) => void
-    searchTerm?: string,
-    showSold?: boolean
+export enum ShowFilter {
+    All,
+    InStockOnly,
+    SoldOnly
 }
 
-export const LotTableToolbar = ({onSearch, searchTerm, showSold, onShowSold}: Props) => {
+interface Props {
+    onSearch: (value: string) => void
+    onShowFilter: (filter: ShowFilter) => void
+    searchTerm?: string,
+    showFilter?: ShowFilter
+}
+
+export const LotTableToolbar = ({onSearch, searchTerm, showFilter, onShowFilter}: Props) => {
     const t = useTranslations("material");
     return (
         <div className="flex flex-row items-center gap-x-2 justify-between">
@@ -23,11 +29,18 @@ export const LotTableToolbar = ({onSearch, searchTerm, showSold, onShowSold}: Pr
                            trailingAdornment={<FaMagnifyingGlass/>}
                 />
             </div>
+            <div className="flex flex-row items-center gap-x-2">
             <CheckBox label={t("show-sold-lots")}
-                      onChecked={onShowSold}
+                      onChecked={(checked) => onShowFilter(!checked ? ShowFilter.All : ShowFilter.SoldOnly)}
                     // @ts-ignore
-                      checked={showSold}
+                      checked={showFilter === ShowFilter.SoldOnly}
             />
+            <CheckBox label={t("show-sold-lots")}
+                      onChecked={(checked) => onShowFilter(!checked ? ShowFilter.All : ShowFilter.InStockOnly)}
+                    // @ts-ignore
+                      checked={showFilter === ShowFilter.InStockOnly}
+            />
+            </div>
         </div>
     )
 }

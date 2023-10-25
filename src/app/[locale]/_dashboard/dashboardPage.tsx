@@ -31,7 +31,6 @@ export function DashboardPage({data}: Props) {
 
 
     const {data: refreshedData} = useSWR('dashboard', async () => {
-        console.log('refreshing', initialLoad.current)
         if (initialLoad.current === 0) {
             initialLoad.current += 1;
             return null;

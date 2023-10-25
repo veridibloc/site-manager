@@ -27,7 +27,6 @@ export const CheckBox = forwardRef(({
         setIsChecked(!isChecked)
         onChecked(!isChecked)
     }
-
     return (
         <div className="relative">
             <div className="flex" onClick={handleClick}>

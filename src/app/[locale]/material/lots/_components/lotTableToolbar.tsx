@@ -1,7 +1,7 @@
 import {useTranslations} from 'next-intl';
 import {TextInput} from '@/ui/inputs/textInput';
 import {FaMagnifyingGlass} from "react-icons/fa6"
-import {CheckBox} from '@/ui/inputs/checkBox';
+import {DropDown} from '@/ui/inputs/dropdown';
 
 export enum ShowFilter {
     All,
@@ -30,16 +30,12 @@ export const LotTableToolbar = ({onSearch, searchTerm, showFilter, onShowFilter}
                 />
             </div>
             <div className="flex flex-row items-center gap-x-2">
-            <CheckBox label={t("show-sold-lots")}
-                      onChecked={(checked) => onShowFilter(!checked ? ShowFilter.All : ShowFilter.SoldOnly)}
-                    // @ts-ignore
-                      checked={showFilter === ShowFilter.SoldOnly}
-            />
-            <CheckBox label={t("show-sold-lots")}
-                      onChecked={(checked) => onShowFilter(!checked ? ShowFilter.All : ShowFilter.InStockOnly)}
-                    // @ts-ignore
-                      checked={showFilter === ShowFilter.InStockOnly}
-            />
+                { /* @ts-ignore */ }
+                <DropDown label={""} onChange={(e) => onShowFilter(Number(e.target.value) as ShowFilter)}>
+                    <option value={ShowFilter.All}>{t("show-all-lots")}</option>
+                    <option value={ShowFilter.InStockOnly}>{t("show-instock-lots")}</option>
+                    <option value={ShowFilter.SoldOnly}>{t("show-sold-lots")}</option>
+                </DropDown>
             </div>
         </div>
     )

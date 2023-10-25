@@ -97,10 +97,12 @@ export default function Page() {
         return rows.filter(row => {
             let isAccepted = true;
             switch (lotFilter) {
-                case ShowFilter.InStock:
+                case ShowFilter.InStockOnly:
+                    // @ts-ignore
                     isAccepted = !soldLots[row[1]];
                     break;
                 case ShowFilter.SoldOnly:
+                    // @ts-ignore
                     isAccepted = soldLots[row[1]];
                     break;
                 case ShowFilter.All:

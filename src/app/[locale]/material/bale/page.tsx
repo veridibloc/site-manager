@@ -5,7 +5,7 @@ import {FormLayout} from '@/ui/layout/formLayout';
 import {useFormatter, useTranslations} from 'next-intl';
 // @ts-ignore
 import {experimental_useFormState as useFormState} from 'react-dom';
-import { bundleMaterial} from './actions';
+import { baleMaterial} from './actions';
 import {SubmitButton} from '@/ui/buttons/submitButton';
 import {DropDown} from '@/ui/inputs/dropdown';
 import {NumberInput} from '@/ui/inputs/numberInput';
@@ -28,7 +28,7 @@ export default function Page() {
     const formRef = useRef<any>();
     const formatter = useFormatter();
 
-    const [state, action] = useFormState(bundleMaterial, {result: null});
+    const [state, action] = useFormState(baleMaterial, {result: null});
     const {materials} = useAccountContext();
     const [fieldValues, setFieldValues] = useState(initialFormValues);
     const [errors, setErrors] = useState(initialErrorValues);
@@ -117,7 +117,7 @@ export default function Page() {
     const canSubmit = !errors.common && !errors.material && !errors.numberLots;
 
     return (
-        <PageLayout title={t("bundle-material-title")}>
+        <PageLayout title={t("bale-material-title")}>
             <section className="max-w-4xl w-full mx-auto my-4 pb-4 border-b border-gray-300">
                 <div className="overflow-x-auto flex flex-row justify-center gap-x-2">
                     {cards.map( ({id, ...props}) => <SimpleCard key={id} isSelected={id===fieldValues.material} {...props}/>)}

@@ -8,7 +8,7 @@
     "collectors-receive": "Receive",
     "material": "Material",
     "material-register": "Register",
-    "material-bundle": "Bundle",
+    "material-bale": "Bale",
     "material-lots": "Lots"
   },
 
@@ -35,7 +35,7 @@
     "chart": {
       "material": "Material",
       "lots": "Lots",
-      "unbundled": "Separated Material",
+      "unbaled": "Separated Material",
       "sold": "Sold Material",
       "tons_in_stock": "In Stock (tons)",
       "tons_sold": "Sold (tons)"
@@ -60,8 +60,8 @@
     "register-incoming-material-title": "Register Incoming Material",
     "separation-date": "Separation Date",
     "proof": "Proof",
-    "bundle-material-title": "Bundle Material to Lot",
-    "bundle-lots-title": "List Lots",
+    "bale-material-title": "Bale Material to Lot",
+    "bale-lots-title": "List Lots",
     "material": "Material",
     "quantity": "Quantity",
     "weight": "Weight",
@@ -85,7 +85,7 @@
     "error-material-required": "Material is required",
     "error-number-lots-required": "Number of lots is required",
     "error-contract-not-found": "Contract not found",
-    "error-number-lots-too-high": "Not sufficient material to bundle"
+    "error-number-lots-too-high": "Not sufficient material to bale"
   },
 
   "common": {

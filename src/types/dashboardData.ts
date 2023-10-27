@@ -7,7 +7,7 @@ export interface CertificateToken {
 
 export interface ChartDataItem {
     name: string;
-    unbundled: number;
+    unbaled: number;
     lots: number;
     sold: number;
 }

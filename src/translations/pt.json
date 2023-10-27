@@ -8,7 +8,7 @@
     "collectors-receive": "Receber",
     "material": "Material",
     "material-register": "Cadastrar",
-    "material-bundle": "Criar Lote",
+    "material-bale": "Criar Lote",
     "material-lots": "Lotes"
   },
   "dashboard": {
@@ -16,7 +16,7 @@
     "chart": {
       "material": "Material",
       "lots": "Lotes",
-      "unbundled": "Materiais Separados",
+      "unbaled": "Materiais Separados",
       "tons": "toneladas",
       "sold": "Materiais Vendidos"
     },
@@ -56,8 +56,8 @@
     "register-incoming-material-title": "Cadastrar Material Separado",
     "proof": "Prova",
     "separation-date": "Data de Separação",
-    "bundle-material-title": "Criar Lote de Material",
-    "bundle-lots-title": "Listar Lotes",
+    "bale-material-title": "Criar Lote de Material",
+    "bale-lots-title": "Listar Lotes",
     "material": "Material",
     "quantity": "Quantidade",
     "weight": "Peso",

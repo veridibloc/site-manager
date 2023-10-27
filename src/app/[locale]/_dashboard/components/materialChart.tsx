@@ -3,7 +3,7 @@ import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, ResponsiveC
 import {useTranslations} from 'next-intl';
 export interface DataItem {
     name: string;
-    unbundled: number;
+    unbaled: number;
     lots: number;
     sold: number
 }
@@ -32,7 +32,7 @@ export const MaterialChart = ({data} : Props) => {
                 <Tooltip />
                 <Legend />
                 <Bar yAxisId="left" dataKey="lots" stackId="a" fill="#93c5fd" name={t("lots")}/>
-                <Bar yAxisId="left" dataKey="unbundled" stackId="a" fill="#86efac" name={t("unbundled")}/>
+                <Bar yAxisId="left" dataKey="unbaled" stackId="a" fill="#86efac" name={t("unbaled")}/>
                 <Bar yAxisId="right" dataKey="sold" stackId="a" fill="#ababab" name={t("sold")}/>
             </BarChart>
         </ResponsiveContainer>

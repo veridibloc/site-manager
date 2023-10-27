@@ -20,7 +20,7 @@ const _Navigation = () => {
                 </NavGroup>
                 <NavGroup icon={<FaRecycle/>} i18n="material">
                     <NavItem icon={<FaListCheck/>} i18n="material-register" href="/material/register"  />
-                    <NavItem icon={<FaCube/>} i18n="material-bundle" href="/material/bundle"  />
+                    <NavItem icon={<FaCube/>} i18n="material-bale" href="/material/bale"  />
                     <NavItem icon={<FaCubes/>} i18n="material-lots" href="/material/lots"  />
                 </NavGroup>
             </ul>

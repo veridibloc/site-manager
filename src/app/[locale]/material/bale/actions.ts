@@ -11,15 +11,12 @@ const schema = z.object({
 })
 
 
-export async function bundleMaterial(prevState: any, formData: FormData) {
+export async function baleMaterial(prevState: any, formData: FormData) {
     try {
         const parsedData = schema.parse({
             materialContractId: formData.get("material"),
             numberOfLots: Number(formData.get("numberLots")),
         })
-
-        // TODO: better logging
-        console.log("bundleMaterial", parsedData);
 
         const {materialContractId, numberOfLots} = parsedData
         const contractsProvider = new ContractsProvider();

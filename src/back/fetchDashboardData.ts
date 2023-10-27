@@ -42,7 +42,7 @@ async function fetchCertificateTokens(certificateContractIds: string[], account:
 
 
 async function fetchChartData(stockContracts: StockContract[], materials: MaterialInfo[]): Promise<ChartDataItem[]> {
-    
+
     const result: ChartDataItem[] = [];
     for (let contract of stockContracts) {
         const material = materials.find(m => m.stockContractId === contract.contractId);
@@ -55,7 +55,7 @@ async function fetchChartData(stockContracts: StockContract[], materials: Materi
 
         result.push({
             name: material.type.toUpperCase(),
-            unbundled: stockQuantity / 1000,
+            unbaled: stockQuantity / 1000,
             lots: (lotsInStock * lotUnitQuantity) / 1000,
             sold: (soldLots * lotUnitQuantity) / 1000
         })

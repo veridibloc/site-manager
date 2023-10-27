@@ -120,7 +120,7 @@ export default function Page() {
     }, [rows, searchTerm, soldLots, lotFilter]);
 
     return (
-        <PageLayout title={t("bundle-lots-title")}>
+        <PageLayout title={t("bale-lots-title")}>
             <section className="max-w-4xl w-full mx-auto my-4 pb-4">
                 <Table
                     toolbar={<LotTableToolbar

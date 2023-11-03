@@ -12,7 +12,7 @@
     "test": "vitest run",
     "db:gen": "prisma generate",
     "db:push": "dotenv -e .env -- prisma db push",
-    "db:migrate": "dotenv -e .env -- npx prisma migrate dev --name",
+    "db:migrate": "dotenv -e .env -- prisma migrate dev --name",
     "db:ui": "dotenv -e .env -- npx prisma studio"
   },
   "dependencies": {
